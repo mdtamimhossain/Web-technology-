@@ -2,9 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Registration</title>
 </head>
 <body>
+    <h1>Create a new account</h1>
 
+    <form action="#" method="post">
+        <div>
+            <label for="username">Username:</label><br />
+            <input type="text" id="username" name="username" required />
+        </div>
+
+        <div>
+            <label for="password">Password:</label><br />
+            <input type="password" id="password" name="password" required />
+        </div>
+
+        <div>
+            <label for="confirm-password">Confirm password:</label><br />
+            <input type="password" id="confirm-password" name="confirm_password" required />
+        </div>
+
+        <div style="margin-top:8px;">
+            <button type="button" >Cancel</button>
+            <button type="submit">Register</button>
+        </div>
+    </form>
+
+    <p><a href="index.html">Back to home</a></p>
 </body>
 </html>

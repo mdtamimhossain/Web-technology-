@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Profile</title>
 </head>
 <body>
+    <h1>Profile</h1>
 
+    <form action="#" method="post">
+        <div>
+            <label for="username">Username:</label><br />
+            <input type="text" id="username" name="username" value="sample user" required />
+        </div>
+
+        <div>
+            <label for="password">Current password:</label><br />
+            <input type="password" id="password" name="password" value="sample pass" required />
+        </div>
+
+        <div style="margin-top:8px;">
+            <button type="submit">Save changes</button>
+            <button type="button" >Logout</button>
+        </div>
+    </form>
+    <p><a href="index.html">Back to home</a></p>
 </body>
 </html>
