@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Krist — Webshop</title>
+    <link rel="stylesheet" href="./../CSS/mystyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<header class="navbar">
+    <div class="nav-container">
+        <!-- logo -->
+        <div class="nav-left">
+            <img src="./../assets/Group 56.png" alt="Krist Logo" class="logo">
+        </div>
+
+        <!-- center menu -->
+        <nav class="nav-center">
+            <a href="#">Home</a>
+            <div class="dropdown">
+                <a href="#">Shop <span class="arrow">▾</span></a>
+                <div class="dropdown-content">
+                    <a href="#">Shoes</a>
+                    <a href="#">Electronic</a>
+                </div>
+            </div>
+            <a href="#">About us</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <!-- right icons and login -->
+        <div class="nav-right">
+            <button class="icon search"><i class="fa fa-search"></i></button>
+            <button class="icon"><i class="fa-regular fa-heart"></i></button>
+            <button class="icon"><i class="fa fa-shopping-bag"></i></button>
+            <button class="login-btn">Login</button>
+        </div>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero container">
+    <div class="hero-container">
+        <div class="hero-text">
+            <p class="hero-tagline">Classic Exclusive</p>
+            <h1>Women’s Collection</h1>
+            <p class="hero-sub">UPTO 40% OFF</p>
+            <a href="#" class="btn">Shop Now →</a>
+        </div>
+
+        <div class="hero-image">
+            <img src="./../assets/hero2.png" alt="Women's Collection">
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- Shop by categories -->
+<section class="container categories">
+    <h2>Shop by Categories</h2>
+    <div class="category-row">
+        <div class="category-card"><img src="assets/casual.jpg" alt=""><div class="cat-label">Casual Wear</div></div>
+        <div class="category-card"><img src="assets/western.jpg" alt=""><div class="cat-label">Western Wear</div></div>
+        <div class="category-card"><img src="assets/ethnic.jpg" alt=""><div class="cat-label">Ethnic Wear</div></div>
+        <div class="category-card"><img src="assets/kids.jpg" alt=""><div class="cat-label">Kids Wear</div></div>
+    </div>
+</section>
+
+<!-- Bestseller grid -->
+<section class="container bestsellers">
+    <h2>Our Bestseller</h2>
+    <div class="products-grid">
+        <!-- Example product card: change src to sneaker203.png which you already have -->
+        <article class="product">
+            <img src="sneaker203.png" alt="SneakerMax203">
+            <h3>SneakerMax203</h3>
+            <p class="price">€79.99 <span class="old">€99.00</span></p>
+            <button class="btn small">Add to cart</button>
+        </article>
+
+        <!-- Duplicate / fill more cards -->
+        <article class="product"><img src="assets/prod2.jpg" alt=""><h3>Allen Solly</h3><p class="price">€80.00</p></article>
+        <article class="product"><img src="assets/prod3.jpg" alt=""><h3>Louis Philippe</h3><p class="price">€50.00</p></article>
+        <article class="product"><img src="assets/prod4.jpg" alt=""><h3>Adidas</h3><p class="price">€60.00</p></article>
+    </div>
+</section>
+
+<!-- Deals of the Month -->
+<section class="container deals">
+    <div class="deals-inner">
+        <div class="deal-text">
+            <h2>Deals of the Month</h2>
+            <p class="lead">Grab the limited time offers on selected items.</p>
+            <div class="countdown">
+                <div><strong>120</strong><span>Days</span></div>
+                <div><strong>18</strong><span>Hours</span></div>
+                <div><strong>15</strong><span>Mins</span></div>
+                <div><strong>10</strong><span>Secs</span></div>
+            </div>
+            <a class="btn" href="#">View All Products →</a>
+        </div>
+
+        <div class="deal-image">
+            <img src="assets/deal-model.jpg" alt="Deal image">
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div class="brand">Krist</div>
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="copyright">©2025 Krist — All Rights reserved</div>
+    </div>
+</footer>
+</body>
+</html>
