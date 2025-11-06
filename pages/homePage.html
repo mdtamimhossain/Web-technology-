@@ -55,60 +55,104 @@
     </div>
 </section>
 
+<!-- shob by category-->
 
-
-
-
-<!-- Shop by categories -->
 <section class="container categories">
-    <h2>Shop by Categories</h2>
+    <div class="categories-header">
+        <h2>Shop by Categories</h2>
+        <div class="cat-nav">
+            <button class="cat-btn p"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="cat-btn next"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+
     <div class="category-row">
-        <div class="category-card"><img src="assets/casual.jpg" alt=""><div class="cat-label">Casual Wear</div></div>
-        <div class="category-card"><img src="assets/western.jpg" alt=""><div class="cat-label">Western Wear</div></div>
-        <div class="category-card"><img src="assets/ethnic.jpg" alt=""><div class="cat-label">Ethnic Wear</div></div>
-        <div class="category-card"><img src="assets/kids.jpg" alt=""><div class="cat-label">Kids Wear</div></div>
+        <div class="category-card">
+            <img src="./../assets/category1.png" alt="Casual Wear">
+            <div class="cat-label">Casual Wear</div>
+        </div>
+        <div class="category-card">
+            <img src="./../assets/category2.png" alt="Western Wear">
+            <div class="cat-label">Western Wear</div>
+        </div>
+        <div class="category-card">
+            <img src="./../assets/category1.png" alt="Ethnic Wear">
+            <div class="cat-label">Ethnic Wear</div>
+        </div>
+        <div class="category-card">
+            <img src="./../assets/category2.png" alt="Kids Wear">
+            <div class="cat-label">Kids Wear</div>
+        </div>
     </div>
 </section>
 
-<!-- Bestseller grid -->
-<section class="container bestsellers">
+
+
+
+<section class="bestseller container">
     <h2>Our Bestseller</h2>
-    <div class="products-grid">
-        <!-- Example product card: change src to sneaker203.png which you already have -->
-        <article class="product">
-            <img src="sneaker203.png" alt="SneakerMax203">
-            <h3>SneakerMax203</h3>
-            <p class="price">€79.99 <span class="old">€99.00</span></p>
-            <button class="btn small">Add to cart</button>
-        </article>
 
-        <!-- Duplicate / fill more cards -->
-        <article class="product"><img src="assets/prod2.jpg" alt=""><h3>Allen Solly</h3><p class="price">€80.00</p></article>
-        <article class="product"><img src="assets/prod3.jpg" alt=""><h3>Louis Philippe</h3><p class="price">€50.00</p></article>
-        <article class="product"><img src="assets/prod4.jpg" alt=""><h3>Adidas</h3><p class="price">€60.00</p></article>
-    </div>
-</section>
-
-<!-- Deals of the Month -->
-<section class="container deals">
-    <div class="deals-inner">
-        <div class="deal-text">
-            <h2>Deals of the Month</h2>
-            <p class="lead">Grab the limited time offers on selected items.</p>
-            <div class="countdown">
-                <div><strong>120</strong><span>Days</span></div>
-                <div><strong>18</strong><span>Hours</span></div>
-                <div><strong>15</strong><span>Mins</span></div>
-                <div><strong>10</strong><span>Secs</span></div>
+    <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+            <div class="product-img">
+                <img src="./../assets/shoe1.png" alt="Printed T-Shirt">
+                <button class="add-btn">Add to Cart</button>
             </div>
-            <a class="btn" href="#">View All Products →</a>
+            <div class="product-info">
+                <h4>Roadster</h4>
+                <p>Printed Cotton T-Shirt</p>
+                <span class="price">$38.00</span>
+                <span class="old-price">$40.00</span>
+            </div>
         </div>
 
-        <div class="deal-image">
-            <img src="assets/deal-model.jpg" alt="Deal image">
+        <!-- Product 2 -->
+        <div class="product-card">
+            <div class="product-img">
+                <img src="./../assets/shoe2.png" alt="Handbag">
+                <button class="add-btn">Add to Cart</button>
+            </div>
+            <div class="product-info">
+                <h4>Allen Solly</h4>
+                <p>Women Textured Handheld Bag</p>
+                <span class="price">$80.00</span>
+                <span class="old-price">$100.00</span>
+            </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+            <div class="product-img">
+                <img src="./../assets/shoe2.png" alt="Polo Collar T-shirt">
+                <button class="add-btn">Add to Cart</button>
+            </div>
+            <div class="product-info">
+                <h4>Louis Philippe Sport</h4>
+                <p>Polo Collar T-Shirt</p>
+                <span class="price">$50.00</span>
+                <span class="old-price">$55.00</span>
+            </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card">
+            <div class="product-img">
+                <img src="./../assets/shoe1.png" alt="Running Shoes">
+                <button class="add-btn">Add to Cart</button>
+            </div>
+            <div class="product-info">
+                <h4>Adidas</h4>
+                <p>Men's Classic Running Shoes</p>
+                <span class="price">$60.00</span>
+                <span class="old-price">$75.00</span>
+            </div>
         </div>
     </div>
 </section>
+
+
+
 
 
 
