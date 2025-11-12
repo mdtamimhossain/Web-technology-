@@ -1,10 +1,269 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Browse Product</title>
+    <link rel="stylesheet" href="./../CSS/mystyle.css">
+    <link rel="stylesheet" href="./../CSS/browseProduct.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+<header class="navbar">
+    <div class="nav-container">
+        <!-- logo -->
+        <div class="nav-left">
+            <img src="./../assets/Group 56.png" alt="Krist Logo" class="logo">
+        </div>
 
+        <!-- center menu -->
+        <nav class="nav-center">
+            <a href="#">Home</a>
+            <div class="dropdown">
+                <a href="#">Shop <span class="arrow">▾</span></a>
+                <div class="dropdown-content">
+                    <a href="#">Shoes</a>
+                    <a href="#">Electronic</a>
+                </div>
+            </div>
+            <a href="#">About us</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <!-- right icons and login -->
+        <div class="nav-right">
+            <button class="icon search"><i class="fa fa-search"></i></button>
+            <button class="icon"><i class="fa-regular fa-heart"></i></button>
+            <button class="icon"><i class="fa fa-shopping-bag"></i></button>
+            <button class="login-btn">Login</button>
+        </div>
+    </div>
+</header>
+
+
+<section class="shop container">
+    <div class="shop-path">
+        <p>Shop &gt; <span>All Products</span></p>
+    </div>
+
+    <div class="shop-layout">
+        <!-- Left Sidebar -->
+        <div class="filters">
+            <div class="filter-section">
+                <p>Product Categories <i class="fa-solid fa-chevron-down"></i></p>
+            </div>
+            <div class="filter-section">
+                <h3>Filter by Price <i class="fa-solid fa-chevron-down"></i></h3>
+            </div>
+            <div class="filter-section">
+                <h3>Filter by Color <i class="fa-solid fa-chevron-down"></i></h3>
+            </div>
+            <div class="filter-section">
+                <h3>Filter by Size <i class="fa-solid fa-chevron-down"></i></h3>
+            </div>
+        </div>
+
+        <!-- Right Content -->
+        <div class="shop-content">
+            <div class="shop-header">
+                <p>Showing 1–16 of 72 results</p>
+                <select class="sort-select">
+                    <option>Shot by latest</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Popularity</option>
+                </select>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="./../assets/shoe1.png" alt="Printed T-Shirt" />
+                        <button class="add-btn">Add to Cart</button>
+
+                        <div class="icons">
+                            <button><i class="fa-regular fa-eye"></i></button>
+                            <button><i class="fa-regular fa-heart"></i></button>
+                            <button><i class="fa-solid fa-code-compare"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4>Roadster</h4>
+                        <p>Printed Cotton T-Shirt</p>
+                        <span class="price">$38.00</span>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="./../assets/shoe2.png" alt="Printed T-Shirt" />
+                        <button class="add-btn">Add to Cart</button>
+
+                        <div class="icons">
+                            <button><i class="fa-regular fa-eye"></i></button>
+                            <button><i class="fa-regular fa-heart"></i></button>
+                            <button><i class="fa-solid fa-code-compare"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4>Roadster</h4>
+                        <p>Printed Cotton T-Shirt</p>
+                        <span class="price">$38.00</span>
+
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="./../assets/shoe1.png" alt="Printed T-Shirt" />
+                        <button class="add-btn">Add to Cart</button>
+
+                        <div class="icons">
+                            <button><i class="fa-regular fa-eye"></i></button>
+                            <button><i class="fa-regular fa-heart"></i></button>
+                            <button><i class="fa-solid fa-code-compare"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4>Roadster</h4>
+                        <p>Printed Cotton T-Shirt</p>
+                        <span class="price">$38.00</span>
+
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="./../assets/shoe3.png" alt="Printed T-Shirt" />
+                        <button class="add-btn">Add to Cart</button>
+
+                        <div class="icons">
+                            <button><i class="fa-regular fa-eye"></i></button>
+                            <button><i class="fa-regular fa-heart"></i></button>
+                            <button><i class="fa-solid fa-code-compare"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4>Roadster</h4>
+                        <p>Printed Cotton T-Shirt</p>
+                        <span class="price">$38.00</span>
+                        <span class="old-price">$40.00</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="./../assets/shoe1.png" alt="Printed T-Shirt" />
+                        <button class="add-btn">Add to Cart</button>
+
+                        <div class="icons">
+                            <button><i class="fa-regular fa-eye"></i></button>
+                            <button><i class="fa-regular fa-heart"></i></button>
+                            <button><i class="fa-solid fa-code-compare"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4>Roadster</h4>
+                        <p>Printed Cotton T-Shirt</p>
+                        <span class="price">$38.00</span>
+                        <span class="old-price">$40.00</span>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="./../assets/shoe2.png" alt="Printed T-Shirt" />
+                        <button class="add-btn">Add to Cart</button>
+
+                        <div class="icons">
+                            <button><i class="fa-regular fa-eye"></i></button>
+                            <button><i class="fa-regular fa-heart"></i></button>
+                            <button><i class="fa-solid fa-code-compare"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4>Roadster</h4>
+                        <p>Printed Cotton T-Shirt</p>
+                        <span class="price">$38.00</span>
+                        <span class="old-price">$40.00</span>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="./../assets/shoe1.png" alt="Printed T-Shirt" />
+                        <button class="add-btn">Add to Cart</button>
+
+                        <div class="icons">
+                            <button><i class="fa-regular fa-eye"></i></button>
+                            <button><i class="fa-regular fa-heart"></i></button>
+                            <button><i class="fa-solid fa-code-compare"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4>Roadster</h4>
+                        <p>Printed Cotton T-Shirt</p>
+                        <span class="price">$38.00</span>
+                        <span class="old-price">$40.00</span>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="./../assets/shoe3.png" alt="Printed T-Shirt" />
+                        <button class="add-btn">Add to Cart</button>
+
+                        <div class="icons">
+                            <button><i class="fa-regular fa-eye"></i></button>
+                            <button><i class="fa-regular fa-heart"></i></button>
+                            <button><i class="fa-solid fa-code-compare"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4>Roadster</h4>
+                        <p>Printed Cotton T-Shirt</p>
+                        <span class="price">$38.00</span>
+                        <span class="old-price">$40.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn prev">←</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn next">→</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div class="brand">Krist</div>
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="copyright">©2025 Krist — All Rights reserved</div>
+    </div>
+</footer>
 </body>
 </html>
