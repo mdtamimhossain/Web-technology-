@@ -1,27 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <link rel="stylesheet" href="log.css" />
 </head>
 <body>
-    <h1>Login</h1>
+  <!-- Left side with image background -->
+  <div class="left-section">
+    <div class="logo">Krist</div>
+  </div>
 
-    <form action="#" method="">
+  <!-- Right side with login form -->
+  <div class="right-section">
+    <div class="login-box">
+      <h1>Welcome</h1>
+      <p>Please login here</p>
+
+      <form>
         <div>
-            <label for="username">Username:</label><br />
-            <input type="text" id="username" name="username" required />
+          <label for="email">Email Address</label>
+          <input type="text" id="email" name="email" placeholder="robertfox@example.com" required />
         </div>
 
         <div>
-            <label for="password">Password:</label><br />
-            <input type="password" id="password" name="password" required />
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="********" required />
         </div>
-        <div style="margin-top:8px;">
-            <button type="button">Register</button>
-            <button type="submit">Login</button>
+
+        <div class="options">
+          <label><input type="checkbox" /> Remember Me</label>
+          <a href="#">Forgot Password?</a>
         </div>
-    </form>
-    <p><a href="../index.html">Back to home</a></p>
+
+        <button type="submit">Login</button>
+      </form>
+
+      <!-- 👇 Back to home link added here -->
+      <div class="back-home">
+        <a href="../index.html">Back to Home</a>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
+
