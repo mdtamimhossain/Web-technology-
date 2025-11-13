@@ -1,0 +1,151 @@
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+/* Page layout */
+body {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #fff;
+}
+
+/* Left section with image */
+.left-section {
+  flex: 1;
+  height: 100vh;
+  background: url("regstr_page.png") no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+/* Logo at top-left */
+.logo {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #111;
+}
+
+/* Right section with form */
+.right-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* Form container */
+.form-box {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-box h1 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.form-box p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #333;
+}
+
+/* Buttons */
+button {
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.register-btn {
+  width: 100%;
+  background-color: #111;
+  color: #fff;
+}
+
+.register-btn:hover {
+  background-color: #000;
+}
+
+/* Back to home link */
+p a {
+  text-decoration: none;
+  color: #333;
+  font-size: 13px;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+a {
+  color: #0077cc;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #004499;
+  text-decoration: underline;
+}
+.back-home {
+  margin-top: 25px;
+  text-align: center; /* Center the link */
+}
+
+.back-home a {
+  color: #555; /* Link color */
+  text-decoration: none; /* Remove underline */
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0; /* Remove button padding */
+  border: none; /* Remove button border */
+  background: none; /* Remove button background */
+  transition: color 0.3s ease; /* Smooth hover */
+}
+
+.back-home a:hover {
+  color: #004499;
+  text-decoration: underline; /* Hover effect */
+}
