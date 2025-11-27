@@ -59,3 +59,4 @@
         // older browsers: ignore
     }
 })();
+/* validation logic moved to JS/validation.js */

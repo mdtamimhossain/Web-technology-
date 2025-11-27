@@ -74,6 +74,14 @@
                     <option>Popularity</option>
                 </select>
             </div>
+            <!-- Tax calculator widget -->
+            <div class="tax-widget">
+                <label>Price (without tax): <input id="priceWOTax" type="number" min="0" step="0.01" placeholder="0.00"></label>
+                <div class="tax-results">
+                    <div>Price w/o tax: <span id="showPriceWOTax">-</span></div>
+                    <div>Price with 19% tax: <span id="showPriceWithTax">-</span></div>
+                </div>
+            </div>
 
             <!-- Product Grid -->
             <div class="product-grid">
@@ -267,5 +275,7 @@
 </footer>
 </footer>
 <script src="./../JS/script.js"></script>
+<script src="./../JS/collection.js"></script>
+<script src="./../JS/priceTax.js"></script>
 </body>
 </html>

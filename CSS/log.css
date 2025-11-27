@@ -75,17 +75,23 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+.form-input {
   width: 100%;
-  padding: 10px 14px;
-  border: 1px solid var(--border-gray);
-  border-radius: 6px;
+  padding: 12px 14px;
+  border: 1px solid #e6e6ef;
+  border-radius: 10px;
   outline: none;
-  transition: 0.3s;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  background: #f6f8fb; /* subtle input background */
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
 }
 
+.form-input:focus,
 input:focus {
-  border-color: var(--dark-gray);
+  border-color: var(--primary);
+  box-shadow: 0 8px 24px rgba(93,70,214,0.06);
+  background: #ffffff;
 }
 
 /* Remember Me + Forgot Password */
@@ -119,15 +125,71 @@ button {
   font-size: 15px;
   cursor: pointer;
   font-weight: 600;
+ 
 }
 
+/* Auth action buttons (login + register) */
+.auth-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  align-items: center;
+  justify-content: center; /* center single primary button */
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn.primary,
+button[type="submit"].primary,
 button[type="submit"] {
-  background-color: var(--primary);
+  background: linear-gradient(90deg, var(--primary), #5d46d6);
   color: var(--white);
+  box-shadow: 0 10px 30px rgba(93,70,214,0.12);
 }
 
+.btn.primary:hover,
 button[type="submit"]:hover {
-  background-color: var(--black);
+  transform: translateY(-1px);
+}
+
+.btn.secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid rgba(93,70,214,0.12);
+}
+
+.btn.secondary:hover {
+  background: rgba(93,70,214,0.04);
+}
+
+/* small prompt under form to guide users between login/registration */
+.auth-prompt {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted-mid);
+  margin-top: 8px;
+}
+
+.auth-prompt a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+.auth-prompt a:hover {
+  text-decoration: underline;
 }
 
 /* Back to home link */
@@ -138,7 +200,7 @@ p a {
 }
 
 p a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 a {
   color: var(--link-blue);
@@ -148,7 +210,7 @@ a {
 
 a:hover {
   color: var(--link-blue-dark);
-  text-decoration: underline;
+  text-decoration: none;
 }
 .back-home {
   margin-top: 25px;
@@ -170,4 +232,9 @@ a:hover {
   color: var(--link-blue-dark);
   text-decoration: underline; /* Hover effect */
 }
+
+/* Validation visual helpers */
+.form-input.invalid, input.invalid { border-color: #e74c3c !important; box-shadow: 0 6px 18px rgba(231,76,60,0.08) !important; background: #fff6f6; }
+.form-input.valid, input.valid { border-color: #2ecc71 !important; box-shadow: 0 6px 18px rgba(46,204,113,0.06) !important; background: #f6fffa; }
+.error-msg { color: #e74c3c; font-size: 12px; margin-top:6px; display:none; }
 
