@@ -11,7 +11,7 @@ body {
   display: flex;
   min-height: 100vh;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--bg);
 }
 
 /* Left section with image */
@@ -30,7 +30,7 @@ body {
   left: 40px;
   font-size: 28px;
   font-weight: 600;
-  color: #111;
+  color: var(--primary);
 }
 
 /* Right section with form */
@@ -56,7 +56,7 @@ body {
 
 .form-box p {
   font-size: 14px;
-  color: #666;
+  color: var(--light-gray);
   margin-bottom: 20px;
 }
 
@@ -78,14 +78,14 @@ input[type="email"],
 input[type="password"] {
   width: 100%;
   padding: 10px 14px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-gray);
   border-radius: 6px;
   outline: none;
   transition: 0.3s;
 }
 
 input:focus {
-  border-color: #333;
+  border-color: var(--dark-gray);
 }
 
 /* Buttons */
@@ -101,18 +101,18 @@ button {
 
 .register-btn {
   width: 100%;
-  background-color: #111;
-  color: #fff;
+  background-color: var(--primary);
+  color: var(--white);
 }
 
 .register-btn:hover {
-  background-color: #000;
+  background-color: var(--black);
 }
 
 /* Back to home link */
 p a {
   text-decoration: none;
-  color: #333;
+  color: var(--dark-gray);
   font-size: 13px;
 }
 
@@ -120,13 +120,13 @@ p a:hover {
   text-decoration: underline;
 }
 a {
-  color: #0077cc;
+  color: var(--link-blue);
   text-decoration: none;
   font-weight: 500;
 }
 
 a:hover {
-  color: #004499;
+  color: var(--link-blue-dark);
   text-decoration: underline;
 }
 .back-home {
@@ -135,7 +135,7 @@ a:hover {
 }
 
 .back-home a {
-  color: #555; /* Link color */
+  color: var(--lighter-gray); /* Link color */
   text-decoration: none; /* Remove underline */
   font-size: 13px;
   font-weight: 500;
@@ -146,6 +146,6 @@ a:hover {
 }
 
 .back-home a:hover {
-  color: #004499;
+  color: var(--link-blue-dark);
   text-decoration: underline; /* Hover effect */
 }

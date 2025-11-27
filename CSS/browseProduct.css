@@ -66,7 +66,7 @@
 
 .filter-section i {
     font-size: 12px;
-    color: #111;
+    color: var(--primary);
     transition: transform 0.3s ease;
 }
 
@@ -85,12 +85,12 @@
 
 .shop-header p {
     font-size: 13px;
-    color: #444;
+    color: var(--medium-gray);
 }
 
 .sort-select {
     border: none;
-    background: #f4f4f4;
+    background: var(--light-bg);
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 13px;
@@ -105,7 +105,7 @@
 }
 
 .product-card {
-    background: #fff;
+    background: var(--white);
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -114,14 +114,14 @@
 }
 
 .product-card:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 24px var(--shadow-medium);
     transform: translateY(-3px);
 }
 
 .product-img {
     position: relative;
     overflow: hidden;
-    background-color: #f4f2f2;
+    background-color: var(--muted);
 }
 
 .product-img img {
@@ -156,17 +156,17 @@
 }
 
 .icons button {
-    background: white;
+    background: var(--white);
     border: none;
     border-radius: 50%;
     padding: 10px;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px var(--shadow-darker);
     transition: background 0.3s ease;
 }
 
 .icons button:hover {
-    background: #f1f1f1;
+    background: var(--very-light-bg);
 }
 
 .product-card:hover .icons {
@@ -181,8 +181,8 @@
     width: 90%;
     left: 50%;
     transform: translateX(-50%);
-    background: #fff;
-    color: #000;
+    background: var(--white);
+    color: var(--black);
     border: none;
     padding: 14px 24px;
     font-weight: 400;
@@ -198,7 +198,7 @@
 }
 
 .add-btn:hover {
-    background: #999;
+    background: var(--pale-gray);
     transition: all 0.5s ease;
 }
 
@@ -211,13 +211,13 @@
 .product-info h4 {
     font-size: 14px;
     font-weight: 550;
-    color: #000;
+    color: var(--primary);
     margin-bottom: 4px;
 }
 
 .product-info p {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--light-gray);
     margin-bottom: 10px;
 }
 
@@ -229,12 +229,12 @@
 }
 
 .price {
-    color: #000;
+    color: var(--primary);
     font-weight: 600;
 }
 
 .old-price {
-    color: #999;
+    color: var(--pale-gray);
     text-decoration: line-through;
     font-size: 0.85rem;
 }
@@ -249,8 +249,8 @@
 }
 
 .page-btn {
-    background: #fff;
-    border: 1px solid #ddd;
+    background: var(--white);
+    border: 1px solid var(--very-light-gray);
     border-radius: 6px;
     padding: 6px 12px;
     cursor: pointer;
@@ -259,8 +259,8 @@
 
 .page-btn.active,
 .page-btn:hover {
-    background: #111;
-    color: #fff;
+    background: var(--primary);
+    color: var(--white);
 }
 
 .page-btn.prev,
