@@ -11,7 +11,7 @@ body {
   display: flex;
   min-height: 100vh;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--white);
 }
 
 /* Left section (image area) */
@@ -21,7 +21,7 @@ body {
   background: url("./../assets/log_page.png") no-repeat center center;
   background-size: cover;
   position: relative;
-  border-right: 1px solid #e6e6e6;
+  border-right: 1px solid var(--pale-bg);
 }
 
 /* Logo in top-left corner */
@@ -31,7 +31,7 @@ body {
   left: 40px;
   font-size: 28px;
   font-weight: 600;
-  color: #111;
+  color: var(--primary);
 }
 
 /* Right section (login form area) */
@@ -57,7 +57,7 @@ body {
 
 .login-box p {
   font-size: 14px;
-  color: #666;
+  color: var(--light-gray);
   margin-bottom: 20px;
 }
 
@@ -78,14 +78,14 @@ input[type="text"],
 input[type="password"] {
   width: 100%;
   padding: 10px 14px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-gray);
   border-radius: 6px;
   outline: none;
   transition: 0.3s;
 }
 
 input:focus {
-  border-color: #333;
+  border-color: var(--dark-gray);
 }
 
 /* Remember Me + Forgot Password */
@@ -104,7 +104,7 @@ input:focus {
 
 .options a {
   text-decoration: none;
-  color: #555;
+  color: var(--muted-mid);
 }
 
 .options a:hover {
@@ -122,18 +122,18 @@ button {
 }
 
 button[type="submit"] {
-  background-color: #111;
-  color: #fff;
+  background-color: var(--primary);
+  color: var(--white);
 }
 
 button[type="submit"]:hover {
-  background-color: #000;
+  background-color: var(--black);
 }
 
 /* Back to home link */
 p a {
   text-decoration: none;
-  color: #333;
+  color: var(--dark-gray);
   font-size: 13px;
 }
 
@@ -141,13 +141,13 @@ p a:hover {
   text-decoration: underline;
 }
 a {
-  color: #0077cc;
+  color: var(--link-blue);
   text-decoration: none;
   font-weight: 500;
 }
 
 a:hover {
-  color: #004499;
+  color: var(--link-blue-dark);
   text-decoration: underline;
 }
 .back-home {
@@ -156,7 +156,7 @@ a:hover {
 }
 
 .back-home a {
-  color: #555; /* Link color */
+  color: var(--muted-mid); /* Link color */
   text-decoration: none; /* Remove underline */
   font-size: 13px;
   font-weight: 500;
@@ -167,7 +167,7 @@ a:hover {
 }
 
 .back-home a:hover {
-  color: #004499;
+  color: var(--link-blue-dark);
   text-decoration: underline; /* Hover effect */
 }
 

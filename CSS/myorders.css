@@ -9,8 +9,8 @@
 /* Sidebar */
 .profile-sidebar {
     width: 260px;
-    background: #fff;
-    border: 1px solid #eee;
+    background: var(--white);
+    border: 1px solid var(--border-light);
     border-radius: 10px;
     padding: 30px 20px;
     height: fit-content;
@@ -32,7 +32,7 @@
 .profile-user p {
     margin: 0;
     font-size: 13px;
-    color: #666;
+    color: var(--light-gray);
 }
 .profile-user h4 {
     margin: 0;
@@ -46,7 +46,7 @@
     gap: 12px;
     padding: 10px 14px;
     border-radius: 8px;
-    color: #333;
+    color: var(--dark-gray);
     font-size: 14px;
     text-decoration: none;
     margin-bottom: 6px;
@@ -54,8 +54,8 @@
 }
 .profile-menu a:hover,
 .profile-menu a.active {
-    background: #111;
-    color: #fff;
+    background: var(--primary);
+    color: var(--white);
 }
 
 /* Right content */
@@ -84,18 +84,18 @@
     top: 50%;
     left: 12px;
     transform: translateY(-50%);
-    color: #999;
+    color: var(--pale-gray);
 }
 .search-box input {
     width: 100%;
     padding: 12px 14px 12px 36px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-gray);
     border-radius: 8px;
     font-size: 14px;
 }
 .filter-btn {
-    background: #111;
-    color: #fff;
+    background: var(--primary);
+    color: var(--white);
     border: none;
     border-radius: 8px;
     padding: 10px 18px;
@@ -113,8 +113,8 @@
 .order-card {
     display: flex;
     align-items: flex-start;
-    background: #fff;
-    border: 1px solid #eee;
+    background: var(--white);
+    border: 1px solid var(--border-light);
     border-radius: 10px;
     padding: 20px;
     justify-content: space-between;
@@ -138,7 +138,7 @@
 }
 .order-details p {
     font-size: 13px;
-    color: #666;
+    color: var(--light-gray);
     margin: 6px 0;
 }
 .status {
@@ -149,23 +149,23 @@
     margin-top: 6px;
 }
 .status.delivered {
-    background: #e7f8eb;
-    color: #22a746;
+    background: var(--success-light);
+    color: var(--success-text);
 }
 .status.inprocess {
-    background: #fff5e5;
-    color: #d68a00;
+    background: var(--warning-light);
+    color: var(--warning-text);
 }
 .note {
     font-size: 13px;
-    color: #777;
+    color: var(--lighter-gray);
 }
 
 /* Price + Actions */
 .order-price {
     font-weight: 600;
     font-size: 15px;
-    color: #111;
+    color: var(--primary);
 }
 
 .order-actions {
@@ -175,8 +175,8 @@
 }
 
 .btn-outline {
-    border: 1px solid #111;
-    color: #111;
+    border: 1px solid var(--primary);
+    color: var(--primary);
     background: none;
     border-radius: 8px;
     padding: 8px 14px;
@@ -185,13 +185,13 @@
     transition: all 0.3s ease;
 }
 .btn-outline:hover {
-    background: #111;
-    color: #fff;
+    background: var(--primary);
+    color: var(--white);
 }
 
 .btn-primary {
-    background: #111;
-    color: #fff;
+    background: var(--primary);
+    color: var(--white);
     border: none;
     border-radius: 8px;
     padding: 8px 14px;
@@ -199,8 +199,8 @@
     cursor: pointer;
 }
 .btn-danger {
-    background: #f04a3e;
-    color: #fff;
+    background: var(--danger);
+    color: var(--white);
     border: none;
     border-radius: 8px;
     padding: 8px 14px;
@@ -208,7 +208,43 @@
     cursor: pointer;
 }
 .btn-danger:hover {
-    background: #d93c2d;
+    background: var(--danger-dark);
 }
 
 /* Footer *
+
+/* Dark-mode page-specific overrides: make white areas gray on customer page */
+body.dark-mode .profile-sidebar,
+body.dark-mode .order-card {
+    background: var(--category-bg);
+    border: 1px solid var(--border-light);
+}
+
+body.dark-mode .search-box input {
+    background: var(--very-light-bg);
+    color: var(--primary);
+    border: 1px solid var(--border-gray);
+}
+
+body.dark-mode .filter-btn {
+    background: var(--pale-bg);
+    color: var(--primary);
+    border: 1px solid var(--border-light);
+}
+
+/* Ensure buttons inside order actions remain readable on gray cards */
+body.dark-mode .order-actions .btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+body.dark-mode .order-actions .btn-primary,
+body.dark-mode .order-actions .btn-danger {
+    color: var(--white);
+}
+
+/* Sidebar text contrast */
+body.dark-mode .profile-menu a {
+    color: var(--light-gray);
+}
+
