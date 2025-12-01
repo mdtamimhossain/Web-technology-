@@ -56,6 +56,14 @@
         return true;
     }
 
+    // added: login-specific password validation — do NOT enforce 10-char minimum
+    function validateLoginPasswordField(input){
+        const v = input.value || '';
+        if (v === ''){ setInvalid(input, 'Please enter your password'); return false; }
+        setValid(input);
+        return true;
+    }
+
     function validatePasswordMatch(pwInput, confirmInput){
         const pw = pwInput.value || '';
         const c = confirmInput.value || '';
@@ -109,16 +117,15 @@
         });
     }
 
-   
     const loginForm = document.getElementById('loginForm');
 
     if (loginForm){
         const pw = loginForm.querySelector('#password');
         const em = loginForm.querySelector('input[type="email"]') || loginForm.querySelector('#email');
-        if (pw){ pw.addEventListener('input', function(){ validatePasswordField(pw); }); }
+        if (pw){ pw.addEventListener('input', function(){ validateLoginPasswordField(pw); }); }
         if (em){ em.addEventListener('input', function(){ validateEmailField(em); }); }
         loginForm.addEventListener('submit', function(e){
-            const okPw = pw ? validatePasswordField(pw) : true;
+            const okPw = pw ? validateLoginPasswordField(pw) : true;
             const okEm = em ? validateEmailField(em) : true;
             if (!(okPw && okEm)){
                 e.preventDefault();
