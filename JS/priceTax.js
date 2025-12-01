@@ -1,5 +1,3 @@
-// priceTax.js
-// Exports a function getTotalPrice(priceWOTax) that returns price including 19% tax
 (function(){
   function getTotalPrice(priceWOTax){
     // ensure numeric
@@ -7,7 +5,7 @@
     return +(p * 1.19).toFixed(2);
   }
 
-  // expose on window for convenience
+  
   window.getTotalPrice = getTotalPrice;
 
   // wire UI if present

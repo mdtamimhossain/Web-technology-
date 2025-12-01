@@ -52,12 +52,13 @@
     --shadow-darker: rgba(0, 0, 0, 0.1);
     --overlay-dark: rgba(17, 17, 17, 0.3);
     --overlay-subtle: rgba(0, 0, 0, 0.0625);
-    /* Icon/button hover background (keeps icon buttons white on hover) */
+   
     --icon-hover-bg: #ffffff;
     /* Danger & special accents */
     --danger: #f04a3e;
     --danger-dark: #d93c2d;
     --star-gold: #ffd700;
+    
 }
 
 body.dark-mode {
@@ -66,7 +67,7 @@ body.dark-mode {
     --primary: #e8e8e8;
     --muted: #1a1a1a;
     --accent: #ffffff;
-    /* Keep black/white consistent across themes to avoid inversion surprises */
+
     --black: #000;
     --white: #fff;
     --dark-gray: #e0e0e0;
@@ -110,7 +111,7 @@ body.dark-mode {
     --shadow-darker: rgba(0, 0, 0, 0.4);
     --overlay-dark: rgba(0, 0, 0, 0.6);
     --overlay-subtle: rgba(255, 255, 255, 0.1);
-    /* Ensure icon hover stays white in dark mode */
+
     --icon-hover-bg: #ffffff;
 }
 
@@ -395,27 +396,68 @@ body.dark-mode .btn:hover {
     width: 350px;
     height: auto;
     object-fit: contain;
-    transform: translateY(-10px); /* fine-tune alignment */
+    transform: translateY(-10px); 
 }
 
-/* Collection list UI */
-.collection-controls { display:flex; gap:8px; align-items:center; margin:8px 0 18px; }
-.collection-controls label { font-size:13px; color:var(--dark-gray); }
-.collection-controls input.collection-qty { width:64px; padding:6px 8px; border-radius:6px; border:1px solid var(--border-gray); }
-.collection-controls .add-to-collection { background: var(--primary); color:var(--white); border:none; padding:8px 12px; border-radius:8px; cursor:pointer; }
 
-.collection-list { background: transparent; margin-top: 18px; padding: 12px 0; }
-.collection-list h3 { margin: 0 0 10px; font-size:18px; }
-.collection-table { width:100%; border-collapse: collapse; display:none; }
-.collection-table th, .collection-table td { padding:8px 10px; border-bottom:1px solid var(--border-light); text-align:left; }
-.collection-table input.col-qty { width:60px; padding:6px 8px; border-radius:6px; border:1px solid var(--border-gray); }
-.collection-table button.remove-col { background:none; border:1px solid var(--danger); color:var(--danger); padding:6px 10px; border-radius:6px; cursor:pointer; }
-.collection-empty { color:var(--light-gray); padding:12px 0; }
-
-@media (max-width:720px){
-    .collection-controls { flex-direction: column; align-items:flex-start; }
-    .collection-table th, .collection-table td { font-size:14px; }
+.collection-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin: 8px 0 18px;
 }
+.collection-controls label { font-size: 13px; color: var(--dark-gray); }
+.collection-controls input.collection-qty {
+    width: 64px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border-gray);
+    background: var(--bg);
+    color: var(--primary);
+}
+.collection-controls .add-to-collection {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.collection-list { margin-top: 18px; padding: 12px 0; }
+.collection-list h3 { margin: 0 0 10px; font-size: 18px; color: var(--primary); }
+.collection-table {
+    width: 100%;
+    border-collapse: collapse;
+    display: none;
+}
+.collection-table.visible { display: table; }
+
+.collection-table th,
+.collection-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border-light);
+    text-align: left;
+    vertical-align: middle;
+}
+.collection-table input.col-qty {
+    width: 60px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border-gray);
+}
+.collection-table button.remove-col {
+    background: none;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.collection-empty { color: var(--light-gray); padding: 12px 0; }
+
+/* Note: collection UI is intentionally NOT responsive (keeps same layout on all screens) */
 
 /* Tax widget styles */
 .tax-widget{ display:flex; gap:16px; align-items:center; margin:12px 0; }
@@ -423,7 +465,41 @@ body.dark-mode .btn:hover {
 .tax-widget input[type="number"]{ padding:8px 10px; border-radius:8px; border:1px solid var(--border-gray); width:140px; }
 .tax-results{ display:flex; gap:12px; color:var(--dark-gray); font-size:14px; }
 
-/* Faint "BEST" text background */
+@media (max-width: 720px) {
+  /* Header / nav: stack and add spacing */
+  .nav-container { flex-direction: column; align-items: stretch; gap: 12px; padding: 12px; }
+  .nav-center { order: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .nav-right { order: 3; display: flex; justify-content: space-between; }
+
+  /* Hero: text above image, center aligned */
+  .hero-container { flex-direction: column; align-items: center; padding: 10px; }
+  .hero-text { text-align: center; margin: 12px 0; max-width: 100%; }
+  .hero-text h1 { font-size: 26px; }
+  .hero-image img { width: 220px; }
+
+  /* Lists and grids become single column */
+  .category-row, .product-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .product-card { padding: 12px; }
+
+  .search-box { width: 100%; margin-bottom: 12px; }
+  .orders-header { flex-direction: column; gap: 10px; align-items: stretch; }
+}
+
+@media (min-width: 721px) and (max-width: 900px) {
+  .nav-container { padding: 12px 16px; }
+  .hero-text h1 { font-size: 32px; }
+  .hero-image img { width: 260px; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+}
+
+
+@media (min-width: 901px) {
+  .nav-container { flex-direction: row; align-items: center; padding: 16px 24px; }
+  .product-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .hero-text h1 { font-size: 40px; margin-top: 0; }
+}
+
+
 .hero::before {
     content: "BEST SELLIN";
     position: absolute;

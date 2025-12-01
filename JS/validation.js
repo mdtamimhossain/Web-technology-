@@ -1,4 +1,4 @@
-/* --- Form validation logic (registration, login, personal info) --- */
+
 (function(){
     // helpers
     function hasUpper(str){ return /[A-Z]/.test(str); }
