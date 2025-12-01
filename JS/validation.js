@@ -1,9 +1,16 @@
-
 (function(){
     // helpers
-    function hasUpper(str){ return /[A-Z]/.test(str); }
-    function hasLower(str){ return /[a-z]/.test(str); }
-    function isEmail(str){ return /^\S+@\S+\.\S+$/.test(str); }
+    function hasUpper(str){ 
+        return /[A-Z]/.test(str); 
+    }
+    function hasLower(str){ 
+        return /[a-z]/.test(str); 
+    }
+    function isEmail(str){ 
+        return /^\S+@\S+\.\S+$/.test(str); 
+    }
+
+    //console("Validation.",hasUpper, hasLower, isEmail);
 
     function ensureErrorElem(input){
         let next = input.nextElementSibling;
@@ -11,6 +18,7 @@
             const span = document.createElement('div');
             span.className = 'error-msg';
             input.parentNode.insertBefore(span, input.nextSibling);
+            console.log("Created error element for", input);
             return span;
         }
         return next;
@@ -64,19 +72,28 @@
         return true;
     }
 
-    // wire up registration form (by id if present)
+ 
     const regForm = document.getElementById('registrationForm');
     const regUsername = document.getElementById('username');
     const regPassword = document.getElementById('password');
     const regConfirm = document.getElementById('confirm-password');
     if (regForm && regUsername && regPassword && regConfirm){
-        // attach listeners
-        regUsername.addEventListener('input', function(){ validateUsernameField(regUsername); });
-        regPassword.addEventListener('input', function(){ validatePasswordField(regPassword); if (regConfirm.value) validatePasswordMatch(regPassword, regConfirm); });
-        regConfirm.addEventListener('input', function(){ validatePasswordMatch(regPassword, regConfirm); });
-        // live email validation if present
+        
+        regUsername.addEventListener('input', function(){ 
+            validateUsernameField(regUsername); 
+        });
+        regPassword.addEventListener('input', function(){ 
+            validatePasswordField(regPassword); 
+            if (regConfirm.value) 
+                validatePasswordMatch(regPassword, regConfirm);
+         });
+        regConfirm.addEventListener('input', function(){ 
+            validatePasswordMatch(regPassword, regConfirm);
+         });
+        
         const regEmail = regForm.querySelector('input[type="email"]');
-        if (regEmail) regEmail.addEventListener('input', function(){ validateEmailField(regEmail); });
+        if (regEmail)
+             regEmail.addEventListener('input', function(){validateEmailField(regEmail);});
 
         regForm.addEventListener('submit', function(e){
             const uOk = validateUsernameField(regUsername);
@@ -92,17 +109,8 @@
         });
     }
 
-    // wire up login form (by id if present, fallback to heuristic)
-    const loginForm = document.getElementById('loginForm') || (function(){
-        const forms = document.querySelectorAll('form');
-        for(const f of forms){
-            const btn = f.querySelector('button[type="submit"]');
-            if (!btn) continue;
-            const txt = (btn.textContent||'').toLowerCase();
-            if (txt.includes('login') || txt.includes('sign in')) return f;
-        }
-        return null;
-    })();
+   
+    const loginForm = document.getElementById('loginForm');
 
     if (loginForm){
         const pw = loginForm.querySelector('#password');
@@ -138,7 +146,7 @@
         function validatePhoneField(input){
             if (!input) return true;
             const v = (input.value||'').trim();
-            if (!v) { setValid(input); return true; } // optional
+            if (!v) { setValid(input); return true; }
             if (!/^[-+()\d\s]{6,}$/.test(v)){ setInvalid(input, 'Enter a valid phone number'); return false; }
             setValid(input); return true;
         }
