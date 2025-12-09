@@ -1,3 +1,15 @@
+<?php
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Try to include a project-wide config from the project root (if present)
+$projectRoot = dirname(__DIR__);
+if (file_exists($projectRoot . '/config.php')) {
+    require_once $projectRoot . '/config.php';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

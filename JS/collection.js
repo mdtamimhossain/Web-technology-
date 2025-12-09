@@ -1,12 +1,14 @@
+
 document.addEventListener('DOMContentLoaded', function(){
   // Find product grid(s)
   const grids = document.querySelectorAll('.product-grid');
-  if (!grids.length) return;
+  if (!grids.length)
+      return;
 
-  // Ensure a single collection container will be created per page
   function ensureCollectionContainer(afterNode){
     let container = document.getElementById('collectionList');
-    if (container) return container;
+    if (container)
+        return container;
     container = document.createElement('div');
     container.id = 'collectionList';
     container.className = 'collection-list container';
@@ -23,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   // Data store (in-memory)
-  const store = {}; // key -> {title, price, qty}
+  const store = {};
 
   function formatPrice(p){
     return '$' + parseFloat(p).toFixed(2);
@@ -61,43 +63,36 @@ document.addEventListener('DOMContentLoaded', function(){
     else store[key] = { title, price: parseFloat(price), qty };
   }
 
-  // Attach controls for each product card
   grids.forEach(grid => {
-    // insert collection container after this grid
+
     const collectionContainer = ensureCollectionContainer(grid);
 
-    // remove any leftover qty controls from previous runs (clean DOM)
     grid.querySelectorAll('.collection-controls').forEach(el => el.remove());
     grid.querySelectorAll('.collection-qty').forEach(el => el.remove());
 
-    // find product cards inside grid
     const cards = grid.querySelectorAll('.product-card');
     cards.forEach((card, idx) => {
-      // Use the existing Add to Cart button for collection behavior
       const addBtn = card.querySelector('.add-btn');
       if (!addBtn) return; // nothing to attach to
 
-      // avoid attaching multiple handlers
       if (addBtn.dataset.collectionAttached) return;
       addBtn.dataset.collectionAttached = '1';
 
       addBtn.addEventListener('click', function(e){
-        // prevent default to avoid navigation if button is a link; keep card design unchanged
         try{ e.preventDefault(); }catch(err){}
         const titleEl = card.querySelector('.product-info h4');
         const priceEl = card.querySelector('.product-info .price');
         const title = titleEl ? titleEl.textContent.trim() : ('Item ' + (idx+1));
         const priceText = priceEl ? priceEl.textContent.replace(/[^0-9.]/g,'') : '0';
         const price = parseFloat(priceText) || 0;
-        const qty = 1; // default single item per click (no qty input)
-        const key = title + '|' + price; // simple key
+        const qty = 1;
+        const key = title + '|' + price;
         addToStore(key, title, price, qty);
         renderCollection(collectionContainer);
       });
 
     });
 
-    // attach collection container event handlers (remove, qty change)
     collectionContainer.addEventListener('click', function(e){
       if (e.target.classList.contains('remove-col')){
         const key = e.target.dataset.key;

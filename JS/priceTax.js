@@ -3,13 +3,7 @@ const getTotalPrice = priceWOTax => {
   return Number((p * 1.19).toFixed(2));
 };
 
-const getPriceWithoutTax = priceWithTax => {
-  const p = Number(priceWithTax) || 0;
-  return Number((p / 1.19).toFixed(2));
-};
-
 window.getTotalPrice = getTotalPrice;
-window.getPriceWithoutTax = getPriceWithoutTax;
 
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('priceWOTax');

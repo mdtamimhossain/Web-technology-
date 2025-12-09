@@ -465,19 +465,45 @@ body.dark-mode .btn:hover {
 .tax-widget input[type="number"]{ padding:8px 10px; border-radius:8px; border:1px solid var(--border-gray); width:140px; }
 .tax-results{ display:flex; gap:12px; color:var(--dark-gray); font-size:14px; }
 
-@media (max-width: 720px) {
-  /* Header / nav: stack and add spacing */
-  .nav-container { flex-direction: column; align-items: stretch; gap: 12px; padding: 12px; }
-  .nav-center { order: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-  .nav-right { order: 3; display: flex; justify-content: space-between; }
 
-  /* Hero: text above image, center aligned */
+
+
+
+
+
+
+
+
+
+
+
+/*responsive start from*/
+
+
+
+
+@media (max-width: 720px) {
+
+  .nav-container {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      padding: 12px;
+  }
+  .nav-center {
+      order: 2;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+  }
+  .nav-right { order: 3; display: flex; justify-content: space-between; }
   .hero-container { flex-direction: column; align-items: center; padding: 10px; }
   .hero-text { text-align: center; margin: 12px 0; max-width: 100%; }
   .hero-text h1 { font-size: 26px; }
   .hero-image img { width: 220px; }
 
-  /* Lists and grids become single column */
+
   .category-row, .product-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
   .product-card { padding: 12px; }
 
@@ -489,14 +515,24 @@ body.dark-mode .btn:hover {
   .nav-container { padding: 12px 16px; }
   .hero-text h1 { font-size: 32px; }
   .hero-image img { width: 260px; }
-  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .product-grid {
+      grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
 }
 
 
 @media (min-width: 901px) {
-  .nav-container { flex-direction: row; align-items: center; padding: 16px 24px; }
-  .product-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .hero-text h1 { font-size: 40px; margin-top: 0; }
+  .nav-container {
+      flex-direction: row; align-items: center;
+      padding: 16px 24px;
+  }
+  .product-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+  }
+  .hero-text h1 {
+      font-size: 40px; margin-top: 0;
+  }
 }
 
 

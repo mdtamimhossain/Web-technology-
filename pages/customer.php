@@ -1,9 +1,29 @@
+<?php
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Try to include a project-wide config from the project root (if present)
+$projectRoot = dirname(__DIR__);
+if (file_exists($projectRoot . '/config.php')) {
+    require_once $projectRoot . '/config.php';
+}
+
+// Expose common session info to templates
+$current_user = $_SESSION['user'] ?? null;
+$user_email = $_SESSION['email'] ?? null;
+$user_name = $_SESSION['name'] ?? 'Robert Fox'; // fallback to existing default
+
+// Set page title
+$page_title = 'Krist — My Orders';
+?>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Krist — My Orders</title>
+    <title><?php echo htmlspecialchars($page_title, ENT_QUOTES); ?></title>
     <link rel="stylesheet" href="./../CSS/mystyle.css">
     <link rel="stylesheet" href="./../CSS/myorders.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -11,32 +31,7 @@
 <body>
 
 <!-- NAVBAR -->
-<header class="navbar">
-    <div class="nav-container">
-        <div class="nav-left">
-            <img src="./../assets/Group 56.png" alt="Krist Logo" class="logo">
-        </div>
-        <nav class="nav-center">
-            <a href="homePage.html">Home</a>
-            <div class="dropdown">
-                <a href="list.html">Shop <span class="arrow">▾</span></a>
-                <div class="dropdown-content">
-                    <a href="#">Shoes</a>
-                    <a href="#">Electronic</a>
-                </div>
-            </div>
-            <a href="#">About us</a>
-            <a href="#">Contact </a>
-        </nav>
-        <!-- right icons and login -->
-        <div class="nav-right">
-            <a class="icon search" href="#"><i class="fa fa-search"></i></a>
-            <a class="icon"><i class="fa-regular fa-heart"></i></a>
-            <a class="icon"><i class="fa fa-shopping-bag"></i></a>
-            <a class="login-btn" href="./login.html" >Login</a>
-        </div>
-    </div>
-</header>
+<?php require_once './includes/header.php'; ?>
 
 <!-- MAIN PROFILE SECTION -->
 <section class="profile-container container">
@@ -46,12 +41,12 @@
             <img src="./../assets/Tareq/img.png" alt="User Photo">
             <div>
                 <p>Hello 👋</p>
-                <h4>Robert Fox</h4>
+                <h4><?php echo htmlspecialchars($user_name, ENT_QUOTES); ?></h4>
             </div>
         </div>
 
         <nav class="profile-menu">
-            <a href="./personal_information.html"><i class="fa-regular fa-user"></i> Personal Information</a>
+            <a href="./personal_information.php"><i class="fa-regular fa-user"></i> Personal Information</a>
             <a href="#" class="active"><i class="fa-solid fa-box"></i> My Orders</a>
             <a href="#"><i class="fa-regular fa-heart"></i> My Wishlists</a>
             <a href="#"><i class="fa-regular fa-address-card"></i> Manage Addresses</a>
@@ -137,7 +132,6 @@
         </div>
         <div class="copyright">©2025 Krist — All Rights reserved</div>
     </div>
-</footer>
 </footer>
 <script src="./../JS/script.js"></script>
 </body>

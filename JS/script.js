@@ -1,7 +1,7 @@
 (function () {
 
     let toggleBtn = document.getElementById("themeToggle");
-    console.log("Theme toggle script loaded.", toggleBtn);
+    //console.log("Theme toggle script loaded.", toggleBtn);
 
 
     if (!toggleBtn) {
@@ -31,7 +31,7 @@
     // Click handler
     toggleBtn.addEventListener('click', () => {
         const isDark = document.body.classList.toggle('dark-mode');
-        console.log("Toggled theme. Dark mode?", isDark);
+        //console.log("Toggled theme. Dark mode?", isDark);
         if (isDark) {
             localStorage.setItem('theme', 'dark');
             toggleBtn.textContent = '☀️';

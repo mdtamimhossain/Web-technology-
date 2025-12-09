@@ -1,45 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Krist — Webshop</title>
-    <link rel="stylesheet" href="./../CSS/mystyle.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-<body>
-<header class="navbar">
-    <div class="nav-container">
-        <!-- logo -->
-        <div class="nav-left">
-            <img src="./../assets/Group 56.png" alt="Krist Logo" class="logo">
-        </div>
-
-        <!-- center menu -->
-        <nav class="nav-center">
-            <a href="./homePage.html">Home</a>
-            <div class="dropdown">
-                <a href="./list.html">Shop <span class="arrow">▾</span></a>
-                <div class="dropdown-content">
-                    <a href="./list.html">Shoes</a>
-                    <a href="./list.html">Electronic</a>
-                </div>
-            </div>
-            <a href="#">About us</a>
-            <a href="#">Contact</a>
-        </nav>
-
-        <!-- right icons and login -->
-        <div class="nav-right">
-            <button class="theme-toggle" id="themeToggle">🌙</button>
-            <a class="icon search" href="#"><i class="fa fa-search"></i></a>
-            <a class="icon"><i class="fa-regular fa-heart"></i></a>
-            <a class="icon"><i class="fa fa-shopping-bag"></i></a>
-            <a class="login-btn" href="./customer.html" >Profile</a>
-        </div>
-    </div>
-</header>
-
+<?php
+$page_title = 'Krist — Home';
+include __DIR__ . '/includes/header.php';
+?>
 <!-- HERO -->
 <section class="hero container">
     <div class="hero-container">
@@ -47,7 +9,7 @@
             <p class="hero-tagline">Classic Exclusive</p>
             <h1>Women’s Collection</h1>
             <p class="hero-sub">UPTO 40% OFF</p>
-            <a href="./list.html" class="btn">Shop Now →</a>
+            <a href="./list.php" class="btn">Shop Now →</a>
         </div>
 
         <div class="hero-image">
@@ -70,7 +32,7 @@
     <div class="category-row">
 
         <!-- Category 1 -->
-        <a href="./list.html" class="category-link">
+        <a href="./list.php" class="category-link">
             <div class="category-card">
                 <img src="./../assets/category1.png" alt="Casual Wear">
                 <div class="cat-label">Casual Wear</div>
@@ -78,7 +40,7 @@
         </a>
 
         <!-- Category 2 -->
-        <a href="./list.html" class="category-link">
+        <a href="./list.php" class="category-link">
             <div class="category-card">
                 <img src="./../assets/category2.png" alt="Western Wear">
                 <div class="cat-label">Western Wear</div>
@@ -86,7 +48,7 @@
         </a>
 
         <!-- Category 3 -->
-        <a href="./list.html" class="category-link">
+        <a href="./list.php" class="category-link">
             <div class="category-card">
                 <img src="./../assets/category1.png" alt="Ethnic Wear">
                 <div class="cat-label">Ethnic Wear</div>
@@ -94,7 +56,7 @@
         </a>
 
         <!-- Category 4 -->
-        <a href="./list.html" class="category-link">
+        <a href="./list.php" class="category-link">
             <div class="category-card">
                 <img src="./../assets/category2.png" alt="Kids Wear">
                 <div class="cat-label">Kids Wear</div>
@@ -104,16 +66,13 @@
     </div>
 </section>
 
-
-
-
 <section class="bestseller container">
     <h2>Our Bestseller</h2>
 
     <div class="product-grid">
 
         <!-- Product 1 -->
-        <a href="./product_details.html" class="product-link">
+        <a href="./product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/shoe1.png" alt="Printed T-Shirt" />
@@ -134,7 +93,7 @@
         </a>
 
         <!-- Product 2 -->
-        <a href="product_details.html" class="product-link">
+        <a href="./product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/shoe2.png" alt="Printed T-Shirt" />
@@ -155,7 +114,7 @@
         </a>
 
         <!-- Product 3 -->
-        <a href="product_details.html" class="product-link">
+        <a href="./product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/shoe1.png" alt="Printed T-Shirt" />
@@ -176,7 +135,7 @@
         </a>
 
         <!-- Product 4 -->
-        <a href="product_details.html" class="product-link">
+        <a href="./product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/shoe3.png" alt="Printed T-Shirt" />
@@ -197,7 +156,7 @@
         </a>
 
         <!-- Product 5 -->
-        <a href="product_details.html" class="product-link">
+        <a href="./product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/shoe1.png" alt="Printed T-Shirt" />
@@ -283,25 +242,4 @@
     </div>
 </section>
 
-
-
-
-
-
-
-<!-- Footer -->
-<footer class="site-footer">
-    <div class="container footer-grid">
-        <div class="brand">Krist</div>
-        <div class="footer-links">
-            <a href="#">About Us</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Contact</a>
-        </div>
-        <div class="copyright">©2025 Krist — All Rights reserved</div>
-    </div>
-</footer>
-<script src="./../JS/script.js"></script>
-<script src="./../JS/collection.js"></script>
-</body>
-</html>
+<?php include __DIR__ . '/includes/footer.php'; ?>

@@ -135,7 +135,7 @@
         });
     }
 
-    // personal information form validation (by id)
+
     const personalForm = document.getElementById('personalForm');
     if (personalForm){
         const first = document.getElementById('firstName');

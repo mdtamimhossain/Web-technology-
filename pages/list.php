@@ -18,9 +18,9 @@
 
         <!-- center menu -->
         <nav class="nav-center">
-            <a href="./homePage.html">Home</a>
+            <a href="./homePage.php">Home</a>
             <div class="dropdown">
-                <a href="./list.html">Shop <span class="arrow">▾</span></a>
+                <a href="./list.php">Shop <span class="arrow">▾</span></a>
                 <div class="dropdown-content">
                     <a href="#">Shoes</a>
                     <a href="#">Electronic</a>
@@ -35,7 +35,7 @@
             <a class="icon search" href="#"><i class="fa fa-search"></i></a>
             <a class="icon"><i class="fa-regular fa-heart"></i></a>
             <a class="icon"><i class="fa fa-shopping-bag"></i></a>
-            <a class="login-btn" href="./login.html" >Login</a>
+            <a class="login-btn" href="./login.php" >Login</a>
         </div>
     </div>
 </header>
