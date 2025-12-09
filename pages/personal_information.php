@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="./../CSS/mystyle.css">
     <link rel="stylesheet" href="./../CSS/myorders.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!-- page uses shared styles from myorders.css and mystyle.css; personal-form styles are in CSS -->
 </head>
 <body>
 
@@ -18,9 +17,9 @@
             <img src="./../assets/Group 56.png" alt="Krist Logo" class="logo">
         </div>
         <nav class="nav-center">
-            <a href="homePage.html">Home</a>
+            <a href="./homePage.php">Home</a>
             <div class="dropdown">
-                <a href="list.html">Shop <span class="arrow">▾</span></a>
+                <a href="./list.php">Shop <span class="arrow">▾</span></a>
                 <div class="dropdown-content">
                     <a href="#">Shoes</a>
                     <a href="#">Electronic</a>
@@ -34,7 +33,7 @@
             <a class="icon search" href="#"><i class="fa fa-search"></i></a>
             <a class="icon"><i class="fa-regular fa-heart"></i></a>
             <a class="icon"><i class="fa fa-shopping-bag"></i></a>
-            <a class="login-btn" href="./login.html" >Login</a>
+            <a class="login-btn" href="./login.php" >Login</a>
         </div>
     </div>
 </header>
@@ -52,8 +51,8 @@
         </div>
 
         <nav class="profile-menu">
-            <a href="./personal_information.html" class="active"><i class="fa-regular fa-user"></i> Personal Information</a>
-            <a href="./customer.html"><i class="fa-solid fa-box"></i> My Orders</a>
+            <a href="./personal_information.php" class="active"><i class="fa-regular fa-user"></i> Personal Information</a>
+            <a href="./customer.php"><i class="fa-solid fa-box"></i> My Orders</a>
             <a href="#"><i class="fa-regular fa-heart"></i> My Wishlists</a>
             <a href="#"><i class="fa-regular fa-address-card"></i> Manage Addresses</a>
             <a href="#"><i class="fa-regular fa-credit-card"></i> Saved Cards</a>

@@ -18,7 +18,7 @@ body {
 .left-section {
   flex: 1;
   height: 100vh;
-  background: url("./../assets/log_page.png") no-repeat center center;
+  background: url("./assets/log_page.png") no-repeat center center;
   background-size: cover;
   position: relative;
   border-right: 1px solid var(--pale-bg);

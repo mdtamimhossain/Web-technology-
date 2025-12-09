@@ -17,9 +17,9 @@
             <img src="./../assets/Group 56.png" alt="Krist Logo" class="logo">
         </div>
         <nav class="nav-center">
-            <a href="homePage.html">Home</a>
+            <a href="./homePage.php">Home</a>
             <div class="dropdown">
-                <a href="list.html">Shop <span class="arrow">▾</span></a>
+                <a href="./list.php">Shop <span class="arrow">▾</span></a>
                 <div class="dropdown-content">
                     <a href="#">Shoes</a>
                     <a href="#">Electronic</a>
@@ -33,7 +33,7 @@
             <a class="icon search" href="#"><i class="fa fa-search"></i></a>
             <a class="icon"><i class="fa-regular fa-heart"></i></a>
             <a class="icon"><i class="fa fa-shopping-bag"></i></a>
-            <a class="login-btn" href="./login.html" >Login</a>
+            <a class="login-btn" href="./login.php" >Login</a>
         </div>
     </div>
 </header>
@@ -51,7 +51,7 @@
         </div>
 
         <nav class="profile-menu">
-            <a href="./personal_information.html"><i class="fa-regular fa-user"></i> Personal Information</a>
+            <a href="./personal_information.php"><i class="fa-regular fa-user"></i> Personal Information</a>
             <a href="#" class="active"><i class="fa-solid fa-box"></i> My Orders</a>
             <a href="#"><i class="fa-regular fa-heart"></i> My Wishlists</a>
             <a href="#"><i class="fa-regular fa-address-card"></i> Manage Addresses</a>

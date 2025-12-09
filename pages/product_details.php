@@ -17,9 +17,9 @@
             <img src="./../assets/Group 56.png" alt="Krist Logo" class="logo">
         </div>
         <nav class="nav-center">
-            <a href="./homePage.html">Home</a>
+            <a href="./homePage.php">Home</a>
             <div class="dropdown">
-                <a href="./list.html">Shop <span class="arrow">▾</span></a>
+                <a href="./list.php">Shop <span class="arrow">▾</span></a>
                 <div class="dropdown-content">
                     <a href="#">Shoes</a>
                     <a href="#">Electronic</a>
@@ -34,7 +34,7 @@
             <a class="icon search" href="#"><i class="fa fa-search"></i></a>
             <a class="icon"><i class="fa-regular fa-heart"></i></a>
             <a class="icon"><i class="fa fa-shopping-bag"></i></a>
-            <a class="login-btn" href="./login.html" >Login</a>
+            <a class="login-btn" href="./login.php" >Login</a>
         </div>
     </div>
 </header>
@@ -124,7 +124,7 @@
     <h3>Related Products</h3>
     <div class="product-grid">
         <!-- Related Product 1 -->
-        <a href="product_details.html" class="product-link">
+        <a href="product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/related1.avif" alt="Mini Dress with Straps" />
@@ -145,7 +145,7 @@
         </a>
 
         <!-- Related Product 2 -->
-        <a href="product_details.html" class="product-link">
+        <a href="product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/related2.avif" alt="US Polo Cotton Casual Shirt" />
@@ -166,7 +166,7 @@
         </a>
 
         <!-- Related Product 3 -->
-        <a href="product_details.html" class="product-link">
+        <a href="product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/related3.avif" alt="Hoodie for Men" />
@@ -187,7 +187,7 @@
         </a>
 
         <!-- Related Product 4 -->
-        <a href="product_details.html" class="product-link">
+        <a href="product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/related1.avif" alt="YK Disney Printed Dress" />
@@ -205,11 +205,10 @@
                     <span class="old-price">$30.00</span>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 </div>
 </section>
-<!-- Product Highlights / Services Section -->
 
 <!-- FOOTER -->
 <footer class="site-footer">

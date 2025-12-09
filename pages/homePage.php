@@ -17,12 +17,12 @@
 
         <!-- center menu -->
         <nav class="nav-center">
-            <a href="./homePage.html">Home</a>
+            <a href="./homePage.php">Home</a>
             <div class="dropdown">
-                <a href="./list.html">Shop <span class="arrow">▾</span></a>
+                <a href="./list.php">Shop <span class="arrow">▾</span></a>
                 <div class="dropdown-content">
-                    <a href="./list.html">Shoes</a>
-                    <a href="./list.html">Electronic</a>
+                    <a href="./list.php">Shoes</a>
+                    <a href="./list.php">Electronic</a>
                 </div>
             </div>
             <a href="#">About us</a>
@@ -35,7 +35,7 @@
             <a class="icon search" href="#"><i class="fa fa-search"></i></a>
             <a class="icon"><i class="fa-regular fa-heart"></i></a>
             <a class="icon"><i class="fa fa-shopping-bag"></i></a>
-            <a class="login-btn" href="./customer.html" >Profile</a>
+            <a class="login-btn" href="./customer.php" >Profile</a>
         </div>
     </div>
 </header>
@@ -45,9 +45,9 @@
     <div class="hero-container">
         <div class="hero-text">
             <p class="hero-tagline">Classic Exclusive</p>
-            <h1>Women’s Collection</h1>
+            <h1>Women's Collection</h1>
             <p class="hero-sub">UPTO 40% OFF</p>
-            <a href="./list.html" class="btn">Shop Now →</a>
+            <a href="./list.php" class="btn">Shop Now →</a>
         </div>
 
         <div class="hero-image">
@@ -70,7 +70,7 @@
     <div class="category-row">
 
         <!-- Category 1 -->
-        <a href="./list.html" class="category-link">
+        <a href="./list.php" class="category-link">
             <div class="category-card">
                 <img src="./../assets/category1.png" alt="Casual Wear">
                 <div class="cat-label">Casual Wear</div>
@@ -78,7 +78,7 @@
         </a>
 
         <!-- Category 2 -->
-        <a href="./list.html" class="category-link">
+        <a href="./list.php" class="category-link">
             <div class="category-card">
                 <img src="./../assets/category2.png" alt="Western Wear">
                 <div class="cat-label">Western Wear</div>
@@ -86,7 +86,7 @@
         </a>
 
         <!-- Category 3 -->
-        <a href="./list.html" class="category-link">
+        <a href="./list.php" class="category-link">
             <div class="category-card">
                 <img src="./../assets/category1.png" alt="Ethnic Wear">
                 <div class="cat-label">Ethnic Wear</div>
@@ -94,7 +94,7 @@
         </a>
 
         <!-- Category 4 -->
-        <a href="./list.html" class="category-link">
+        <a href="./list.php" class="category-link">
             <div class="category-card">
                 <img src="./../assets/category2.png" alt="Kids Wear">
                 <div class="cat-label">Kids Wear</div>
@@ -113,7 +113,7 @@
     <div class="product-grid">
 
         <!-- Product 1 -->
-        <a href="./product_details.html" class="product-link">
+        <a href="./product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/shoe1.png" alt="Printed T-Shirt" />
@@ -134,7 +134,7 @@
         </a>
 
         <!-- Product 2 -->
-        <a href="product_details.html" class="product-link">
+        <a href="product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/shoe2.png" alt="Printed T-Shirt" />
@@ -155,7 +155,7 @@
         </a>
 
         <!-- Product 3 -->
-        <a href="product_details.html" class="product-link">
+        <a href="product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/shoe1.png" alt="Printed T-Shirt" />
@@ -176,7 +176,7 @@
         </a>
 
         <!-- Product 4 -->
-        <a href="product_details.html" class="product-link">
+        <a href="product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/shoe3.png" alt="Printed T-Shirt" />
@@ -197,7 +197,7 @@
         </a>
 
         <!-- Product 5 -->
-        <a href="product_details.html" class="product-link">
+        <a href="product_details.php" class="product-link">
             <div class="product-card">
                 <div class="product-img">
                     <img src="./../assets/shoe1.png" alt="Printed T-Shirt" />
