@@ -1,3 +1,22 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require_once './includes/functions.php';
+
+$siteName = "Krist";
+$currentYear = date('Y');
+$companyEmail = "krist@example.com";
+$companyPhone = "707-927-0137";
+$companyAddress = "301 Baseline Rd, Highland, California 92346";
+
+// Get bestseller products (limit to 8)
+$allProducts = getAllProducts();
+$bestsellers = array_slice($allProducts, 0, 8);
+
+// Get categories for display
+$categories = getAllCategories();
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,37 +27,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-<header class="navbar">
-    <div class="nav-container">
-        <!-- logo -->
-        <div class="nav-left">
-            <img src="./assets/Group 56.png" alt="Krist Logo" class="logo">
-        </div>
-
-        <!-- center menu -->
-        <nav class="nav-center">
-            <a href="./index.php">Home</a>
-            <div class="dropdown">
-                <a href="./pages/list.php">Shop <span class="arrow">▾</span></a>
-                <div class="dropdown-content">
-                    <a href="./pages/list.php">Shoes</a>
-                    <a href="./pages/list.php">Electronic</a>
-                </div>
-            </div>
-            <a href="#">About us</a>
-            <a href="#">Contact</a>
-        </nav>
-
-        <!-- right icons and login -->
-        <div class="nav-right">
-            <button class="theme-toggle" id="themeToggle">🌙</button>
-            <a class="icon search" href="#"><i class="fa fa-search"></i></a>
-            <a class="icon"><i class="fa-regular fa-heart"></i></a>
-            <a class="icon"><i class="fa fa-shopping-bag"></i></a>
-            <a class="login-btn" href="./pages/customer.php" >Profile</a>
-        </div>
-    </div>
-</header>
+<?php include './includes/navbar.php'; ?>
 
 <!-- HERO -->
 <section class="hero container">
@@ -56,8 +45,7 @@
     </div>
 </section>
 
-<!-- shob by category-->
-
+<!-- Shop by category -->
 <section class="container categories">
     <div class="categories-header">
         <h2>Shop by Categories</h2>
@@ -68,239 +56,59 @@
     </div>
 
     <div class="category-row">
-
-        <!-- Category 1 -->
-        <a href="./pages/list.php" class="category-link">
+        <?php 
+        // Category images - you can customize these
+        $categoryImages = [
+            'shoes' => 'category1.png',
+            'electronics' => 'category2.png',
+            'fashion' => 'category1.png'
+        ];
+        
+        foreach ($categories as $category): 
+            $image = isset($categoryImages[$category['id']]) ? $categoryImages[$category['id']] : 'category1.png';
+        ?>
+        <a href="./pages/list.php?category=<?php echo urlencode($category['id']); ?>" class="category-link">
             <div class="category-card">
-                <img src="./assets/category1.png" alt="Casual Wear">
-                <div class="cat-label">Casual Wear</div>
+                <img src="./assets/<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($category['name']); ?>">
+                <div class="cat-label"><?php echo htmlspecialchars($category['name']); ?></div>
             </div>
         </a>
-
-        <!-- Category 2 -->
-        <a href="./pages/list.php" class="category-link">
-            <div class="category-card">
-                <img src="./assets/category2.png" alt="Western Wear">
-                <div class="cat-label">Western Wear</div>
-            </div>
-        </a>
-
-        <!-- Category 3 -->
-        <a href="./pages/list.php" class="category-link">
-            <div class="category-card">
-                <img src="./assets/category1.png" alt="Ethnic Wear">
-                <div class="cat-label">Ethnic Wear</div>
-            </div>
-        </a>
-
-        <!-- Category 4 -->
-        <a href="./pages/list.php" class="category-link">
-            <div class="category-card">
-                <img src="./assets/category2.png" alt="Kids Wear">
-                <div class="cat-label">Kids Wear</div>
-            </div>
-        </a>
-
+        <?php endforeach; ?>
     </div>
 </section>
 
-
-
-
+<!-- BESTSELLERS -->
 <section class="bestseller container">
     <h2>Our Bestseller</h2>
 
     <div class="product-grid">
-
-        <!-- Product 1 -->
-        <a href="./pages/product_details.php" class="product-link">
+        <?php foreach ($bestsellers as $product): ?>
+        <a href="./pages/product_details.php?pid=<?php echo urlencode($product['id']); ?>" class="product-link">
             <div class="product-card">
                 <div class="product-img">
-                    <img src="./assets/shoe1.png" alt="Printed T-Shirt" />
-                    <button class="add-btn">Add to Cart</button>
+                    <img src="./assets/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" />
+                    <button class="add-btn" onclick="event.preventDefault(); event.stopPropagation(); alert('Added to cart!');">Add to Cart</button>
                     <div class="icons">
-                        <button><i class="fa-regular fa-eye"></i></button>
-                        <button><i class="fa-regular fa-heart"></i></button>
-                        <button><i class="fa-solid fa-code-compare"></i></button>
+                        <button onclick="event.preventDefault(); event.stopPropagation();"><i class="fa-regular fa-eye"></i></button>
+                        <button onclick="event.preventDefault(); event.stopPropagation();"><i class="fa-regular fa-heart"></i></button>
+                        <button onclick="event.preventDefault(); event.stopPropagation();"><i class="fa-solid fa-code-compare"></i></button>
                     </div>
                 </div>
                 <div class="product-info">
-                    <h4>Roadster</h4>
-                    <p>Printed Cotton T-Shirt</p>
-                    <span class="price">$38.00</span>
-                    <span class="old-price">$40.00</span>
+                    <h4><?php echo htmlspecialchars($product['name']); ?></h4>
+                    <p><?php echo htmlspecialchars(ucfirst($product['category'])); ?></p>
+                    <span class="price"><?php echo formatPrice($product['price']); ?></span>
+                    <?php if ($product['oldPrice'] > $product['price']): ?>
+                        <span class="old-price"><?php echo formatPrice($product['oldPrice']); ?></span>
+                    <?php endif; ?>
                 </div>
             </div>
         </a>
-
-        <!-- Product 2 -->
-        <a href="./pages/product_details.php" class="product-link">
-            <div class="product-card">
-                <div class="product-img">
-                    <img src="./assets/shoe2.png" alt="Printed T-Shirt" />
-                    <button class="add-btn">Add to Cart</button>
-                    <div class="icons">
-                        <button><i class="fa-regular fa-eye"></i></button>
-                        <button><i class="fa-regular fa-heart"></i></button>
-                        <button><i class="fa-solid fa-code-compare"></i></button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h4>Roadster</h4>
-                    <p>Printed Cotton T-Shirt</p>
-                    <span class="price">$38.00</span>
-                    <span class="old-price">$40.00</span>
-                </div>
-            </div>
-        </a>
-
-        <!-- Product 3 -->
-        <a href="./pages/product_details.php" class="product-link">
-            <div class="product-card">
-                <div class="product-img">
-                    <img src="./assets/shoe1.png" alt="Printed T-Shirt" />
-                    <button class="add-btn">Add to Cart</button>
-                    <div class="icons">
-                        <button><i class="fa-regular fa-eye"></i></button>
-                        <button><i class="fa-regular fa-heart"></i></button>
-                        <button><i class="fa-solid fa-code-compare"></i></button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h4>Roadster</h4>
-                    <p>Printed Cotton T-Shirt</p>
-                    <span class="price">$38.00</span>
-                    <span class="old-price">$40.00</span>
-                </div>
-            </div>
-        </a>
-
-        <!-- Product 4 -->
-        <a href="./pages/product_details.php" class="product-link">
-            <div class="product-card">
-                <div class="product-img">
-                    <img src="./assets/shoe3.png" alt="Printed T-Shirt" />
-                    <button class="add-btn">Add to Cart</button>
-                    <div class="icons">
-                        <button><i class="fa-regular fa-eye"></i></button>
-                        <button><i class="fa-regular fa-heart"></i></button>
-                        <button><i class="fa-solid fa-code-compare"></i></button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h4>Roadster</h4>
-                    <p>Printed Cotton T-Shirt</p>
-                    <span class="price">$38.00</span>
-                    <span class="old-price">$40.00</span>
-                </div>
-            </div>
-        </a>
-
-        <!-- Product 5 -->
-        <a href="./pages/product_details.php" class="product-link">
-            <div class="product-card">
-                <div class="product-img">
-                    <img src="./assets/shoe1.png" alt="Printed T-Shirt" />
-                    <button class="add-btn">Add to Cart</button>
-                    <div class="icons">
-                        <button><i class="fa-regular fa-eye"></i></button>
-                        <button><i class="fa-regular fa-heart"></i></button>
-                        <button><i class="fa-solid fa-code-compare"></i></button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h4>Roadster</h4>
-                    <p>Printed Cotton T-Shirt</p>
-                    <span class="price">$38.00</span>
-                    <span class="old-price">$40.00</span>
-                </div>
-            </div>
-        </a>
-
-        <!-- Product 6 -->
-        <a href="#" class="product-link">
-            <div class="product-card">
-                <div class="product-img">
-                    <img src="./assets/shoe2.png" alt="Printed T-Shirt" />
-                    <button class="add-btn">Add to Cart</button>
-                    <div class="icons">
-                        <button><i class="fa-regular fa-eye"></i></button>
-                        <button><i class="fa-regular fa-heart"></i></button>
-                        <button><i class="fa-solid fa-code-compare"></i></button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h4>Roadster</h4>
-                    <p>Printed Cotton T-Shirt</p>
-                    <span class="price">$38.00</span>
-                    <span class="old-price">$40.00</span>
-                </div>
-            </div>
-        </a>
-
-        <!-- Product 7 -->
-        <a href="#" class="product-link">
-            <div class="product-card">
-                <div class="product-img">
-                    <img src="./assets/shoe1.png" alt="Printed T-Shirt" />
-                    <button class="add-btn">Add to Cart</button>
-                    <div class="icons">
-                        <button><i class="fa-regular fa-eye"></i></button>
-                        <button><i class="fa-regular fa-heart"></i></button>
-                        <button><i class="fa-solid fa-code-compare"></i></button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h4>Roadster</h4>
-                    <p>Printed Cotton T-Shirt</p>
-                    <span class="price">$38.00</span>
-                    <span class="old-price">$40.00</span>
-                </div>
-            </div>
-        </a>
-
-        <!-- Product 8 -->
-        <a href="#" class="product-link">
-            <div class="product-card">
-                <div class="product-img">
-                    <img src="./assets/shoe3.png" alt="Printed T-Shirt" />
-                    <button class="add-btn">Add to Cart</button>
-                    <div class="icons">
-                        <button><i class="fa-regular fa-eye"></i></button>
-                        <button><i class="fa-regular fa-heart"></i></button>
-                        <button><i class="fa-solid fa-code-compare"></i></button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h4>Roadster</h4>
-                    <p>Printed Cotton T-Shirt</p>
-                    <span class="price">$38.00</span>
-                    <span class="old-price">$40.00</span>
-                </div>
-            </div>
-        </a>
-
+        <?php endforeach; ?>
     </div>
 </section>
 
-
-
-
-
-
-
-<!-- Footer -->
-<footer class="site-footer">
-    <div class="container footer-grid">
-        <div class="brand">Krist</div>
-        <div class="footer-links">
-            <a href="#">About Us</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Contact</a>
-        </div>
-        <div class="copyright">©2025 Krist — All Rights reserved</div>
-    </div>
-</footer>
+<?php include './includes/footer.php'; ?>
 <script src="./JS/script.js"></script>
 <script src="./JS/collection.js"></script>
 </body>

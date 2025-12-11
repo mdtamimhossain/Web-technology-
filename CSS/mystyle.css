@@ -814,6 +814,7 @@ body.dark-mode .cat-btn:hover {
     display: inline;
 }
 
+/* FOOTER STYLES - Original Design */
 .site-footer {
     background: var(--primary);
     color: var(--bg);
@@ -832,14 +833,38 @@ body.dark-mode .site-footer {
     align-items: center;
     gap: 18px;
 }
-.footer-links a {
-    color: var(--very-light-gray);
-    margin-right: 12px;
-    text-decoration: none;
+
+.footer-grid .brand {
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--bg);
 }
-.footer-links a:hover {
+
+body.dark-mode .footer-grid .brand {
     color: var(--white);
 }
+
+.footer-links {
+    display: flex;
+    gap: 12px;
+}
+
+.footer-links a {
+    color: var(--very-light-gray);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    color: var(--white);
+    text-decoration: none;
+}
+
+.footer-grid .copyright {
+    font-size: 13px;
+    color: var(--very-light-gray);
+}
+
 .theme-toggle {
     background: none;
     border: 1px solid var(--primary);

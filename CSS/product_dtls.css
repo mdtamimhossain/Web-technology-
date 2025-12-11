@@ -202,14 +202,63 @@ thumbnail-images img:hover {
 }
 .tab-link.active { background: var(--primary); color: var(--white); }
 
+/* Tab Content Styling */
 .tab-content {
     display: none;
-    border: 1px solid var(--border-light);
-    padding: 20px;
-    border-radius: 0 6px 6px 6px;
-    margin-top: -1px;
+    padding: 20px 0;
 }
-.tab-content.active { display: block; }
+
+.tab-content.active {
+    display: block;
+}
+
+/* Size Button Active State */
+.size-btn.active {
+    background-color: var(--primary, #131118);
+    color: #fff;
+    border-color: var(--primary, #131118);
+}
+
+/* Color Option Active State */
+.color-options .color {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.color-options .color:hover {
+    transform: scale(1.1);
+}
+
+.color-options .color.active {
+    box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--primary, #131118);
+    transform: scale(1.1);
+}
+
+/* Thumbnail Active State */
+.thumbnail-images img {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s, border-color 0.2s;
+    border: 2px solid transparent;
+}
+
+.thumbnail-images img:hover,
+.thumbnail-images img.active {
+    opacity: 1;
+    border-color: var(--primary, #131118);
+}
+
+/* Rating Stars */
+.rating i {
+    color: #f5a623;
+    font-size: 14px;
+}
+
+.rating span {
+    color: #666;
+    font-size: 14px;
+    margin-left: 5px;
+}
 
 /* ====================== RELATED PRODUCTS – NEW DESIGN (Exact Match) ====================== */
 .related-products {
@@ -354,4 +403,25 @@ body.dark-mode .size-btn:hover {
 body.dark-mode .size-btn.active {
     background-color: var(--primary);
     color: var(--black);
+}
+
+/* Error Message */
+.error-message {
+    background-color: #ffe6e6;
+    border: 1px solid #ff4444;
+    color: #cc0000;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 40px auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+.error-message h2 {
+    margin-bottom: 10px;
+}
+
+.error-message a {
+    color: var(--primary);
+    text-decoration: underline;
 }

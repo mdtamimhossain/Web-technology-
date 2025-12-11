@@ -1,0 +1,121 @@
+{
+    "products": [
+        {
+            "id": "1001",
+            "name": "Roadster Printed Cotton T-Shirt",
+            "category": "shoes",
+            "price": 38.00,
+            "oldPrice": 40.00,
+            "description": "A comfortable printed cotton t-shirt with premium quality fabric. Perfect for casual wear.",
+            "image": "shoe1.png",
+            "sizes": ["S", "M", "L", "XL"],
+            "colors": ["red", "blue", "black"],
+            "rating": 4,
+            "inStock": true
+        },
+        {
+            "id": "1002",
+            "name": "Classic Running Sneakers",
+            "category": "shoes",
+            "price": 79.99,
+            "oldPrice": 99.99,
+            "description": "High-performance running shoes with cushioned sole and breathable material.",
+            "image": "shoe2.png",
+            "sizes": ["S", "M", "L", "XL"],
+            "colors": ["white", "black", "gray"],
+            "rating": 5,
+            "inStock": true
+        },
+        {
+            "id": "1003",
+            "name": "Premium Sport Shoes",
+            "category": "shoes",
+            "price": 55.00,
+            "oldPrice": 70.00,
+            "description": "Lightweight sport shoes designed for maximum comfort and durability.",
+            "image": "shoe3.png",
+            "sizes": ["M", "L", "XL"],
+            "colors": ["blue", "green", "orange"],
+            "rating": 4,
+            "inStock": true
+        },
+        {
+            "id": "2001",
+            "name": "Mini Dress with Straps",
+            "category": "fashion",
+            "price": 85.00,
+            "oldPrice": 120.00,
+            "description": "Elegant mini dress with adjustable straps, perfect for summer occasions.",
+            "image": "related1.avif",
+            "sizes": ["S", "M", "L"],
+            "colors": ["pink", "white", "black"],
+            "rating": 4,
+            "inStock": true
+        },
+        {
+            "id": "2002",
+            "name": "US Polo Cotton Casual Shirt",
+            "category": "fashion",
+            "price": 30.00,
+            "oldPrice": 40.00,
+            "description": "Premium cotton casual shirt with classic polo design.",
+            "image": "related2.avif",
+            "sizes": ["S", "M", "L", "XL"],
+            "colors": ["blue", "white", "navy"],
+            "rating": 5,
+            "inStock": true
+        },
+        {
+            "id": "2003",
+            "name": "Hoodie for Men",
+            "category": "fashion",
+            "price": 50.00,
+            "oldPrice": 70.00,
+            "description": "Comfortable hoodie made from soft fleece material, perfect for cold days.",
+            "image": "related3.avif",
+            "sizes": ["M", "L", "XL", "XXL"],
+            "colors": ["gray", "black", "navy"],
+            "rating": 4,
+            "inStock": true
+        },
+        {
+            "id": "2004",
+            "name": "YK Disney Printed Dress",
+            "category": "fashion",
+            "price": 25.00,
+            "oldPrice": 30.00,
+            "description": "Adorable Disney printed dress for kids, made with soft cotton fabric.",
+            "image": "main_product.avif",
+            "sizes": ["S", "M", "L"],
+            "colors": ["red", "green", "yellow", "orange", "blue", "black"],
+            "rating": 4,
+            "inStock": true
+        },
+        {
+            "id": "3001",
+            "name": "Wireless Bluetooth Headphones",
+            "category": "electronic",
+            "price": 89.99,
+            "oldPrice": 129.99,
+            "description": "High-quality wireless headphones with noise cancellation and 30-hour battery life.",
+            "image": "shoe1.png",
+            "sizes": [],
+            "colors": ["black", "white", "silver"],
+            "rating": 5,
+            "inStock": true
+        },
+        {
+            "id": "3002",
+            "name": "Smart Watch Pro",
+            "category": "electronic",
+            "price": 199.00,
+            "oldPrice": 249.00,
+            "description": "Advanced smartwatch with health monitoring, GPS, and water resistance.",
+            "image": "shoe2.png",
+            "sizes": [],
+            "colors": ["black", "silver", "gold"],
+            "rating": 4,
+            "inStock": true
+        }
+    ]
+}
