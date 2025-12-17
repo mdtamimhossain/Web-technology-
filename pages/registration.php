@@ -55,12 +55,12 @@ if (file_exists($projectRoot . '/config.php')) {
         </div>
 
         <!-- prompt: guide users to login if they already have an account -->
-        <p class="auth-prompt">Already have an account? <a href="./login.html">Sign in</a></p>
+        <p class="auth-prompt">Already have an account? <a href="./login.php">Sign in</a></p>
       </form>
 
       <!-- 👇 Back to home link added here -->
       <div class="back-home">
-        <a href="./homePage.html">Back to Home</a>
+        <a href="./../index.php">Back to Home</a>
       </div>
     </div>
   </div>

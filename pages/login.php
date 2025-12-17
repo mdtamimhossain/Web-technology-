@@ -48,9 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Krist</title>
+  <title>Login</title>
   <link rel="stylesheet" href="./../CSS/log.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
   <!-- Left side with image background -->
@@ -61,33 +60,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <!-- Right side with login form -->
   <div class="right-section">
     <div class="login-box">
-      <h1>Welcome Back</h1>
-      <p>Please login to your account</p>
+      <h1>Welcome</h1>
+      <p>Please login here</p>
 
       <?php if ($error): ?>
       <div class="error-alert">
-        <i class="fa fa-exclamation-circle"></i> <?php echo htmlspecialchars($error); ?>
-      </div>
-      <?php endif; ?>
-      
-      <?php if ($success): ?>
-      <div class="success-alert">
-        <i class="fa fa-check-circle"></i> <?php echo htmlspecialchars($success); ?>
+        <?php echo htmlspecialchars($error); ?>
       </div>
       <?php endif; ?>
 
-      <form method="POST" action="">
+      <form method="POST" action="" id="loginForm">
         <div class="form-group">
           <label for="email">Email Address</label>
-          <input class="form-input" type="email" id="email" name="email" 
-                 placeholder="Enter your email" 
+          <input class="form-input" type="text" id="email" name="email" 
+                 placeholder="robertfox@example.com" 
                  value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>" required />
         </div>
 
         <div class="form-group">
           <label for="password">Password</label>
           <input class="form-input" type="password" id="password" name="password" 
-                 placeholder="Enter your password" required />
+                 placeholder="********" required />
         </div>
 
         <div class="options">
@@ -96,25 +89,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="auth-actions">
-          <button type="submit" class="btn primary">
-            <i class="fa fa-sign-in-alt"></i> Login
-          </button>
+          <button type="submit" class="btn primary">Login</button>
         </div>
 
         <p class="auth-prompt">Don't have an account? <a href="./registration.php">Create one</a></p>
       </form>
 
       <div class="back-home">
-        <a href="./../index.php"><i class="fa fa-arrow-left"></i> Back to Home</a>
-      </div>
-      
-      <div class="test-credentials">
-        <p><strong>Test Account:</strong></p>
-        <p>Email: test@example.com</p>
-        <p>Password: test123</p>
+        <a href="./../index.php">Back to Home</a>
       </div>
     </div>
   </div>
+  <script src="./../JS/script.js"></script>
+  <script src="./../JS/validation.js"></script>
 </body>
 </html>
 
