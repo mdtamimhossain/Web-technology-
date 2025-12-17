@@ -28,29 +28,24 @@ $productCount = count($products);
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Browse Product - <?php echo htmlspecialchars($pageTitle); ?></title>
     <link rel="stylesheet" href="./../CSS/mystyle.css">
-    <link rel="stylesheet" href="./../CSS/browseProduct.css">
+    <link rel="stylesheet" href="./../CSS/browseProduct.css?v=2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        .category-list {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0;
+        /* Override to ensure filters display correctly */
+        .filters {
+            display: block !important;
         }
-        .category-list li {
-            margin: 8px 0;
+        .filter-section {
+            display: block !important;
+            width: 100% !important;
         }
-        .category-list a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: background-color 0.2s;
+        .filter-header {
+            display: flex !important;
+            width: 100% !important;
         }
-        .category-list a:hover,
-        .category-list a.active {
-            background-color: #f0f0f0;
-            color: var(--primary);
+        .filter-content {
+            display: block !important;
+            width: 100% !important;
         }
         .no-products {
             text-align: center;
@@ -66,6 +61,20 @@ $productCount = count($products);
             text-decoration: none;
             color: inherit;
         }
+        .filter-apply-btn {
+            width: 100%;
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+        .filter-apply-btn:hover {
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
@@ -79,32 +88,84 @@ $productCount = count($products);
     <div class="shop-layout">
         <!-- Left Sidebar -->
         <div class="filters">
-            <div class="filter-section">
-                <p>Product Categories <i class="fa-solid fa-chevron-down"></i></p>
-                <ul class="category-list">
-                    <li>
-                        <a href="list.php" <?php echo !$categoryFilter ? 'class="active"' : ''; ?>>
-                            All Products
-                        </a>
-                    </li>
-                    <?php foreach ($categories as $category): ?>
-                    <li>
-                        <a href="list.php?category=<?php echo urlencode($category['id']); ?>" 
-                           <?php echo $categoryFilter === $category['id'] ? 'class="active"' : ''; ?>>
-                            <?php echo htmlspecialchars($category['name']); ?>
-                        </a>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
+            <!-- Product Categories Filter -->
+            <div class="filter-section open">
+                <div class="filter-header">
+                    <p>Product Categories</p>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="filter-content">
+                    <ul class="category-list">
+                        <li>
+                            <a href="list.php" <?php echo !$categoryFilter ? 'class="active"' : ''; ?>>
+                                All Products
+                            </a>
+                        </li>
+                        <?php foreach ($categories as $category): ?>
+                        <li>
+                            <a href="list.php?category=<?php echo urlencode($category['id']); ?>" 
+                               <?php echo $categoryFilter === $category['id'] ? 'class="active"' : ''; ?>>
+                                <?php echo htmlspecialchars($category['name']); ?>
+                            </a>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </div>
+            
+            <!-- Filter by Price -->
             <div class="filter-section">
-                <h3>Filter by Price <i class="fa-solid fa-chevron-down"></i></h3>
+                <div class="filter-header">
+                    <h3>Filter by Price</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="filter-content">
+                    <div class="price-filter">
+                        <div class="price-inputs">
+                            <input type="number" placeholder="Min" id="minPrice">
+                            <input type="number" placeholder="Max" id="maxPrice">
+                        </div>
+                        <button class="filter-apply-btn" onclick="applyPriceFilter()">Apply</button>
+                    </div>
+                </div>
             </div>
+            
+            <!-- Filter by Color -->
             <div class="filter-section">
-                <h3>Filter by Color <i class="fa-solid fa-chevron-down"></i></h3>
+                <div class="filter-header">
+                    <h3>Filter by Color</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="filter-content">
+                    <div class="color-options">
+                        <span class="color-option" style="background-color: #000000;" title="Black"></span>
+                        <span class="color-option" style="background-color: #ffffff; border: 1px solid #ddd;" title="White"></span>
+                        <span class="color-option" style="background-color: #ff0000;" title="Red"></span>
+                        <span class="color-option" style="background-color: #0000ff;" title="Blue"></span>
+                        <span class="color-option" style="background-color: #00ff00;" title="Green"></span>
+                        <span class="color-option" style="background-color: #ffff00;" title="Yellow"></span>
+                        <span class="color-option" style="background-color: #ff6600;" title="Orange"></span>
+                        <span class="color-option" style="background-color: #808080;" title="Gray"></span>
+                    </div>
+                </div>
             </div>
+            
+            <!-- Filter by Size -->
             <div class="filter-section">
-                <h3>Filter by Size <i class="fa-solid fa-chevron-down"></i></h3>
+                <div class="filter-header">
+                    <h3>Filter by Size</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="filter-content">
+                    <div class="size-options">
+                        <span class="size-option">XS</span>
+                        <span class="size-option">S</span>
+                        <span class="size-option">M</span>
+                        <span class="size-option">L</span>
+                        <span class="size-option">XL</span>
+                        <span class="size-option">XXL</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -187,5 +248,36 @@ $productCount = count($products);
 <script src="./../JS/cart.js"></script>
 <script src="./../JS/collection.js"></script>
 <script src="./../JS/priceTax.js"></script>
+<script>
+// Filter toggle functionality
+document.querySelectorAll('.filter-header').forEach(header => {
+    header.addEventListener('click', function() {
+        const section = this.parentElement;
+        section.classList.toggle('open');
+    });
+});
+
+// Color option selection
+document.querySelectorAll('.color-option').forEach(option => {
+    option.addEventListener('click', function() {
+        this.classList.toggle('active');
+    });
+});
+
+// Size option selection
+document.querySelectorAll('.size-option').forEach(option => {
+    option.addEventListener('click', function() {
+        this.classList.toggle('active');
+    });
+});
+
+// Price filter (placeholder function)
+function applyPriceFilter() {
+    const min = document.getElementById('minPrice').value;
+    const max = document.getElementById('maxPrice').value;
+    // Add filter logic here
+    console.log('Price filter:', min, '-', max);
+}
+</script>
 </body>
 </html>
