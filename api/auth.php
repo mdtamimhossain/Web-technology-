@@ -6,7 +6,7 @@
 
 header('Content-Type: application/json');
 
-require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/auth.php';
 
 // Get the action from POST
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
@@ -23,33 +23,19 @@ switch ($action) {
             break;
         }
         
-        $pdo = getDBConnection();
-        if (!$pdo) {
-            $response = ['success' => false, 'message' => 'Database connection failed'];
-            break;
-        }
-        
-        $stmt = $pdo->prepare("SELECT id, name, email, password FROM users WHERE email = ?");
-        $stmt->execute([$email]);
-        $user = $stmt->fetch();
-        
-        if ($user && password_verify($password, $user['password'])) {
-            initSession();
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['name'];
-            $_SESSION['user_email'] = $user['email'];
-            
+        $result = loginUser($email, $password);
+        if ($result['success']) {
             $response = [
                 'success' => true,
                 'message' => 'Login successful',
                 'user' => [
-                    'id' => $user['id'],
-                    'name' => $user['name'],
-                    'email' => $user['email']
+                    'id' => $_SESSION['user_id'],
+                    'name' => $_SESSION['user_name'],
+                    'email' => $_SESSION['user_email']
                 ]
             ];
         } else {
-            $response = ['success' => false, 'message' => 'Invalid email or password'];
+            $response = ['success' => false, 'message' => $result['message']];
         }
         break;
         
@@ -75,6 +61,7 @@ switch ($action) {
             break;
         }
         
+        // Use registerUser function but with extended fields
         $pdo = getDBConnection();
         if (!$pdo) {
             $response = ['success' => false, 'message' => 'Database connection failed'];
@@ -89,7 +76,7 @@ switch ($action) {
             break;
         }
         
-        // Create new user
+        // Create new user with extended fields
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $pdo->prepare("INSERT INTO users (name, email, password, phone, address) VALUES (?, ?, ?, ?, ?)");
         
@@ -118,8 +105,7 @@ switch ($action) {
         break;
         
     case 'logout':
-        initSession();
-        session_destroy();
+        logoutUser();
         $response = ['success' => true, 'message' => 'Logged out successfully'];
         break;
         

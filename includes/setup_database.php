@@ -1,9 +1,5 @@
 <?php
-/**
- * Database Setup Script
- * Run this file once to create all necessary tables for the webShop
- * URL: http://localhost/task3-10/includes/setup_database.php
- */
+
 
 // Database credentials
 $host = 'localhost';
@@ -14,7 +10,6 @@ $dbname = 'webShop';
 echo "<h1>WebShop Database Setup</h1>";
 
 try {
-    // First connect without database to create it if needed
     $pdo = new PDO("mysql:host=$host;charset=utf8mb4", $user, $pass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     ]);
@@ -23,10 +18,9 @@ try {
     $pdo->exec("CREATE DATABASE IF NOT EXISTS `$dbname` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
     echo "<p style='color:green;'>✓ Database '$dbname' created or already exists.</p>";
     
-    // Now connect to the database
     $pdo->exec("USE `$dbname`");
     
-    // Create users table
+
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -41,7 +35,7 @@ try {
     ");
     echo "<p style='color:green;'>✓ Table 'users' created successfully.</p>";
     
-    // Create shopping_cart table (for persistent cart - optional, we'll use session for guests)
+    // Create shopping_cart table for persistent permant and guest er jonne session-based carts
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS shopping_cart (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -105,7 +99,7 @@ try {
     ");
     echo "<p style='color:green;'>✓ Table 'order_items' created successfully.</p>";
     
-    // Insert a test user (password: test123)
+    // Insert a test user (password: test123) default hisebe
     $testPassword = password_hash('test123', PASSWORD_DEFAULT);
     $stmt = $pdo->prepare("INSERT IGNORE INTO users (name, email, password, phone, address) VALUES (?, ?, ?, ?, ?)");
     $stmt->execute(['Test User', 'test@example.com', $testPassword, '123-456-7890', '123 Test Street, Test City']);
