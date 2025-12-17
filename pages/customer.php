@@ -29,9 +29,7 @@ $page_title = 'Krist — My Orders';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-
-<!-- NAVBAR -->
-<?php require_once './includes/header.php'; ?>
+<?php include './../includes/navbar.php'; ?>
 
 <!-- MAIN PROFILE SECTION -->
 <section class="profile-container container">
@@ -121,18 +119,7 @@ $page_title = 'Krist — My Orders';
     </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="site-footer">
-    <div class="container footer-grid">
-        <div class="brand">Krist</div>
-        <div class="footer-links">
-            <a href="#">About Us</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Contact</a>
-        </div>
-        <div class="copyright">©2025 Krist — All Rights reserved</div>
-    </div>
-</footer>
+<?php include './../includes/footer.php'; ?>
 <script src="./../JS/script.js"></script>
 </body>
 </html>

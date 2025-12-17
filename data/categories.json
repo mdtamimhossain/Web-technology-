@@ -1,0 +1,19 @@
+{
+  "categories": [
+    {
+      "id": "shoes",
+      "name": "Shoes",
+      "description": "Discover our collection of premium footwear"
+    },
+    {
+      "id": "fashion",
+      "name": "Fashion",
+      "description": "Trendy clothing for every occasion"
+    },
+    {
+      "id": "electronic",
+      "name": "Electronics",
+      "description": "Latest gadgets and electronic devices"
+    }
+  ]
+}

@@ -18,7 +18,7 @@ body {
 .left-section {
   flex: 1;
   height: 100vh;
-  background: url("./../assets/log_page.png") no-repeat center center;
+  background: url("./assets/log_page.png") no-repeat center center;
   background-size: cover;
   position: relative;
   border-right: 1px solid var(--pale-bg);
@@ -238,3 +238,49 @@ a:hover {
 .form-input.valid, input.valid { border-color: #2ecc71 !important; box-shadow: 0 6px 18px rgba(46,204,113,0.06) !important; background: #f6fffa; }
 .error-msg { color: #e74c3c; font-size: 12px; margin-top:6px; display:none; }
 
+/* Alert Messages */
+.error-alert {
+  background: #fee;
+  color: #d32f2f;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ffcdd2;
+}
+
+.success-alert {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #c8e6c9;
+}
+
+/* Test Credentials Box */
+.test-credentials {
+  margin-top: 25px;
+  padding: 15px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #666;
+  border: 1px dashed #ddd;
+}
+
+.test-credentials p {
+  margin: 3px 0;
+  color: #666;
+}
+
+.test-credentials strong {
+  color: #333;
+}
