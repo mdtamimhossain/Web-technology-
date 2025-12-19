@@ -1,18 +1,14 @@
 <?php
 /**
  * Cart Functions
- * Handles all shopping cart operations using session storage
+ * Shopping cart er sob operation handle kore
  */
 
 require_once __DIR__ . '/../database/db.php';
 require_once __DIR__ . '/../auth/auth.php';
 require_once __DIR__ . '/functions.php';
 
-/**
- * Check if customer is blocked
- * @param int $userId User ID
- * @return array ['blocked' => bool, 'reason' => string|null]
- */
+// Customer blocked kina check kore
 function isCustomerBlocked($userId) {
     $pdo = getDBConnection();
     if (!$pdo) return ['blocked' => false, 'reason' => null];
@@ -27,9 +23,7 @@ function isCustomerBlocked($userId) {
     return ['blocked' => false, 'reason' => null];
 }
 
-/**
- * Initialize the cart in session
- */
+// Session e cart initialize kore
 function initCart() {
     initSession();
     if (!isset($_SESSION['cart'])) {
@@ -37,31 +31,24 @@ function initCart() {
     }
 }
 
-/**
- * Add item to cart
- * @param string $productId Product ID
- * @param int $quantity Quantity to add
- * @param string $size Selected size
- * @param string $color Selected color
- * @return array Result with success status and message
- */
+// Cart e product add kore
 function addToCart($productId, $quantity = 1, $size = '', $color = '') {
     initCart();
     
-    // Get product details
+    // Product er details ber kore
     $product = getProductById($productId);
     if (!$product) {
         return ['success' => false, 'message' => 'Product not found'];
     }
     
-    // Create unique key for cart item (product + size + color combination)
+    // Unique key banay (product + size + color combination)
     $cartKey = $productId . '_' . $size . '_' . $color;
     
     if (isset($_SESSION['cart'][$cartKey])) {
-        // Update quantity if item already exists
+        // Item age thakle quantity update kore
         $_SESSION['cart'][$cartKey]['quantity'] += $quantity;
     } else {
-        // Add new item
+        // Notun item add kore
         $_SESSION['cart'][$cartKey] = [
             'product_id' => $productId,
             'name' => $product['name'],
@@ -80,12 +67,7 @@ function addToCart($productId, $quantity = 1, $size = '', $color = '') {
     ];
 }
 
-/**
- * Update item quantity in cart
- * @param string $cartKey Cart item key
- * @param int $quantity New quantity
- * @return array Result with success status
- */
+// Cart e item er quantity update kore
 function updateCartItem($cartKey, $quantity) {
     initCart();
     
@@ -94,7 +76,7 @@ function updateCartItem($cartKey, $quantity) {
     }
     
     if ($quantity <= 0) {
-        // Remove item if quantity is 0 or negative
+        // Quantity 0 hole item remove kore
         unset($_SESSION['cart'][$cartKey]);
         return ['success' => true, 'message' => 'Item removed from cart', 'cartCount' => getCartItemCount()];
     }
@@ -108,11 +90,7 @@ function updateCartItem($cartKey, $quantity) {
     ];
 }
 
-/**
- * Remove item from cart
- * @param string $cartKey Cart item key
- * @return array Result with success status
- */
+// Cart theke item remove kore
 function removeFromCart($cartKey) {
     initCart();
     
@@ -124,19 +102,13 @@ function removeFromCart($cartKey) {
     return ['success' => false, 'message' => 'Item not found in cart'];
 }
 
-/**
- * Get all cart items
- * @return array Cart items
- */
+// Sob cart items return kore
 function getCartItems() {
     initCart();
     return $_SESSION['cart'];
 }
 
-/**
- * Get cart item count (total number of items)
- * @return int Total item count
- */
+// Cart e total item count return kore
 function getCartItemCount() {
     initCart();
     $count = 0;
@@ -146,10 +118,7 @@ function getCartItemCount() {
     return $count;
 }
 
-/**
- * Get cart subtotal (before tax)
- * @return float Subtotal amount
- */
+// Cart er subtotal (tax chara) return kore
 function getCartSubtotal() {
     initCart();
     $subtotal = 0;
@@ -159,36 +128,24 @@ function getCartSubtotal() {
     return $subtotal;
 }
 
-/**
- * Get tax amount
- * @return float Tax amount
- */
+// Tax amount return kore
 function getCartTax() {
     return getCartSubtotal() * TAX_RATE;
 }
 
-/**
- * Get cart total (including tax)
- * @return float Total amount
- */
+// Cart er total (tax shoho) return kore
 function getCartTotal() {
     return getCartSubtotal() + getCartTax();
 }
 
-/**
- * Clear the entire cart
- * @return array Result with success status
- */
+// Pura cart clear kore
 function clearCart() {
     initSession();
     $_SESSION['cart'] = [];
     return ['success' => true, 'message' => 'Cart cleared'];
 }
 
-/**
- * Get cart summary
- * @return array Cart summary with items, subtotal, tax, and total
- */
+// Cart er summary return kore
 function getCartSummary() {
     return [
         'items' => getCartItems(),
@@ -200,17 +157,13 @@ function getCartSummary() {
     ];
 }
 
-/**
- * Create an order from the current cart
- * @param array $shippingInfo Shipping information
- * @return array Result with success status and order details
- */
+// Cart theke order create kore
 function createOrder($shippingInfo = []) {
     if (!isLoggedIn()) {
         return ['success' => false, 'message' => 'Please login to complete your order', 'requireLogin' => true];
     }
     
-    // Check if customer is blocked
+    // Customer blocked kina check kore
     $blockedStatus = isCustomerBlocked(getCurrentUserId());
     if ($blockedStatus['blocked']) {
         $reason = $blockedStatus['reason'] ? ': ' . $blockedStatus['reason'] : '';
@@ -236,7 +189,7 @@ function createOrder($shippingInfo = []) {
         $tax = getCartTax();
         $total = getCartTotal();
         
-        // Insert order
+        // Order insert kore
         $stmt = $pdo->prepare("
             INSERT INTO orders (user_id, order_number, subtotal, tax_amount, total_amount, 
                                shipping_name, shipping_address, shipping_phone, notes)
@@ -256,7 +209,7 @@ function createOrder($shippingInfo = []) {
         
         $orderId = $pdo->lastInsertId();
         
-        // Insert order items
+        // Order items insert kore
         $itemStmt = $pdo->prepare("
             INSERT INTO order_items (order_id, product_id, product_name, product_price, 
                                     quantity, size, color, subtotal)
@@ -279,7 +232,7 @@ function createOrder($shippingInfo = []) {
         
         $pdo->commit();
         
-        // Clear the cart after successful order
+        // Order hoe gele cart clear kore
         clearCart();
         
         return [
@@ -297,11 +250,7 @@ function createOrder($shippingInfo = []) {
     }
 }
 
-/**
- * Get user's order history
- * @param int $userId User ID
- * @return array List of orders
- */
+// User er order history return kore
 function getUserOrders($userId = null) {
     if ($userId === null) {
         $userId = getCurrentUserId();
@@ -323,11 +272,7 @@ function getUserOrders($userId = null) {
     return $stmt->fetchAll();
 }
 
-/**
- * Cancel an order (only if pending - not yet shipped)
- * @param int $orderId Order ID
- * @return array Result with success status
- */
+// Order cancel kore (shudhu pending hole)
 function cancelOrder($orderId) {
     if (!isLoggedIn()) {
         return ['success' => false, 'message' => 'Please login to cancel order'];
@@ -338,7 +283,7 @@ function cancelOrder($orderId) {
         return ['success' => false, 'message' => 'Database connection failed'];
     }
     
-    // Get the order and verify ownership
+    // Order ber kore ar ownership verify kore
     $stmt = $pdo->prepare("SELECT * FROM orders WHERE id = ? AND user_id = ?");
     $stmt->execute([$orderId, getCurrentUserId()]);
     $order = $stmt->fetch();
@@ -347,12 +292,12 @@ function cancelOrder($orderId) {
         return ['success' => false, 'message' => 'Order not found'];
     }
     
-    // Only allow cancellation if order is pending (not yet processed/shipped)
+    // Shudhu pending order cancel kora jay
     if ($order['status'] !== 'pending') {
         return ['success' => false, 'message' => 'Only pending orders can be cancelled. Your order is already ' . $order['status'] . '.'];
     }
     
-    // Cancel the order
+    // Order cancel kore
     $stmt = $pdo->prepare("UPDATE orders SET status = 'cancelled' WHERE id = ?");
     $result = $stmt->execute([$orderId]);
     
@@ -363,28 +308,24 @@ function cancelOrder($orderId) {
     return ['success' => false, 'message' => 'Failed to cancel order'];
 }
 
-/**
- * Get order details including items
- * @param int $orderId Order ID
- * @return array|null Order details or null if not found
- */
+// Order er details return kore items shoho
 function getOrderDetails($orderId) {
     $pdo = getDBConnection();
     if (!$pdo) return null;
     
-    // Get order
+    // Order ber kore
     $stmt = $pdo->prepare("SELECT * FROM orders WHERE id = ?");
     $stmt->execute([$orderId]);
     $order = $stmt->fetch();
     
     if (!$order) return null;
     
-    // Check if current user owns this order
+    // Current user er order kina check kore
     if ($order['user_id'] !== getCurrentUserId()) {
         return null;
     }
     
-    // Get order items
+    // Order items ber kore
     $itemStmt = $pdo->prepare("SELECT * FROM order_items WHERE order_id = ?");
     $itemStmt->execute([$orderId]);
     $order['items'] = $itemStmt->fetchAll();

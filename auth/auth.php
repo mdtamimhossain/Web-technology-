@@ -1,42 +1,31 @@
 <?php
 /**
  * Authentication Functions
- * Handles user authentication, session management, and user operations
+ * User login, logout ar session handle korar jonno
  */
 
 require_once __DIR__ . '/../database/db.php';
 
-/**
- * Initialize session if not already started
- */
+// Session start kore jodi age start na hoy
 function initSession() {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
 }
 
-/**
- * Check if user is logged in
- * @return bool True if user is authenticated
- */
+// User logged in kina check kore
 function isLoggedIn() {
     initSession();
     return isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
 }
 
-/**
- * Get current user ID
- * @return int|null User ID or null if not logged in
- */
+// Current user er ID return kore
 function getCurrentUserId() {
     initSession();
     return isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null;
 }
 
-/**
- * Get current user data
- * @return array|null User data or null if not logged in
- */
+// Current user er data return kore
 function getCurrentUser() {
     if (!isLoggedIn()) {
         return null;
@@ -50,20 +39,13 @@ function getCurrentUser() {
     return $stmt->fetch();
 }
 
-/**
- * Get last name from full name
- * @param string $fullName The full name
- * @return string The last name (or full name if only one word)
- */
+// Full name theke last name ber kore
 function getLastName($fullName) {
     $parts = explode(' ', trim($fullName));
     return count($parts) > 1 ? end($parts) : $fullName;
 }
 
-/**
- * Get current user's last name
- * @return string The user's last name or empty string
- */
+// Current user er last name return kore
 function getCurrentUserLastName() {
     initSession();
     if (isset($_SESSION['user_name'])) {
@@ -72,12 +54,7 @@ function getCurrentUserLastName() {
     return '';
 }
 
-/**
- * Login user with email and password
- * @param string $email User email
- * @param string $password User password
- * @return array Result with success status and message
- */
+// Email ar password diye login kore
 function loginUser($email, $password) {
     $pdo = getDBConnection();
     if (!$pdo) {
@@ -100,27 +77,21 @@ function loginUser($email, $password) {
     return ['success' => false, 'message' => 'Invalid email or password'];
 }
 
-/**
- * Register a new user
- * @param string $name User name
- * @param string $email User email
- * @param string $password User password
- * @return array Result with success status and message
- */
+// Notun user register kore
 function registerUser($name, $email, $password) {
     $pdo = getDBConnection();
     if (!$pdo) {
         return ['success' => false, 'message' => 'Database connection failed'];
     }
     
-    // Check if email already exists
+    // Email already ache kina check kore
     $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
     $stmt->execute([$email]);
     if ($stmt->fetch()) {
         return ['success' => false, 'message' => 'Email already registered'];
     }
     
-    // Hash password and insert user
+    // Password hash kore ar user insert kore
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
     
@@ -128,7 +99,7 @@ function registerUser($name, $email, $password) {
         $stmt->execute([$name, $email, $hashedPassword]);
         $userId = $pdo->lastInsertId();
         
-        // Auto login after registration
+        // Registration er por auto login kore
         initSession();
         $_SESSION['user_id'] = $userId;
         $_SESSION['user_name'] = $name;
@@ -140,9 +111,7 @@ function registerUser($name, $email, $password) {
     }
 }
 
-/**
- * Logout current user
- */
+// User ke logout kore
 function logoutUser() {
     initSession();
     $_SESSION = [];
@@ -158,10 +127,7 @@ function logoutUser() {
     session_destroy();
 }
 
-/**
- * Check if user has valid session
- * @return bool True if session is valid
- */
+// Session valid kina check kore
 function validateSession() {
     initSession();
     
@@ -169,7 +135,7 @@ function validateSession() {
         return false;
     }
     
-    // Optionally verify user still exists in database
+    // Database e user ache kina verify kore
     $pdo = getDBConnection();
     if (!$pdo) return false;
     

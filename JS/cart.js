@@ -1,17 +1,13 @@
 /**
  * Shopping Cart JavaScript
- * Handles all cart operations via AJAX
+ * Cart er sob operation AJAX diye handle kore
  */
 
-// Get API path from the global variable set by PHP
+// PHP theke set kora API path ney
 const API_PATH = window.apiPath || './api/';
 const AUTH_PATH = window.authPath || './auth/';
 
-/**
- * Show toast notification
- * @param {string} message - Message to display
- * @param {string} type - 'success', 'error', or 'info'
- */
+// Toast notification dekhay
 function showToast(message, type = 'success') {
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toastMessage');
@@ -27,13 +23,7 @@ function showToast(message, type = 'success') {
     }
 }
 
-/**
- * Add product to cart
- * @param {string} productId - Product ID
- * @param {number} quantity - Quantity to add
- * @param {string} size - Selected size
- * @param {string} color - Selected color
- */
+// Cart e product add kore
 async function addToCart(productId, quantity = 1, size = '', color = '') {
     try {
         const formData = new FormData();
@@ -65,11 +55,7 @@ async function addToCart(productId, quantity = 1, size = '', color = '') {
     }
 }
 
-/**
- * Update cart item quantity
- * @param {string} cartKey - Cart item key
- * @param {number} delta - Change in quantity (+1 or -1)
- */
+// Cart item er quantity update kore (delta diye)
 async function updateQuantity(cartKey, delta) {
     const input = document.querySelector(`input[data-cart-key="${cartKey}"]`);
     if (!input) return;
@@ -81,11 +67,7 @@ async function updateQuantity(cartKey, delta) {
     await setQuantity(cartKey, newQuantity);
 }
 
-/**
- * Set specific quantity for cart item
- * @param {string} cartKey - Cart item key
- * @param {number} quantity - New quantity
- */
+// Cart item er specific quantity set kore
 async function setQuantity(cartKey, quantity) {
     quantity = parseInt(quantity);
     if (isNaN(quantity) || quantity < 1) {
@@ -117,10 +99,7 @@ async function setQuantity(cartKey, quantity) {
     }
 }
 
-/**
- * Remove item from cart
- * @param {string} cartKey - Cart item key
- */
+// Cart theke item remove kore
 async function removeItem(cartKey) {
     if (!confirm('Are you sure you want to remove this item?')) {
         return;
@@ -139,7 +118,7 @@ async function removeItem(cartKey) {
         const result = await response.json();
         
         if (result.success) {
-            // Remove item from DOM
+            // DOM theke item remove kore
             const itemElement = document.querySelector(`[data-cart-key="${cartKey}"]`);
             if (itemElement) {
                 itemElement.remove();
@@ -149,7 +128,7 @@ async function removeItem(cartKey) {
             updateCartBadge(result.cartCount);
             showToast('Item removed from cart', 'success');
             
-            // If cart is empty, reload page to show empty state
+            // Cart empty hole page reload kore
             if (result.cartCount === 0) {
                 setTimeout(() => location.reload(), 500);
             }
@@ -162,9 +141,7 @@ async function removeItem(cartKey) {
     }
 }
 
-/**
- * Clear entire cart
- */
+// Pura cart clear kore
 async function clearCart() {
     if (!confirm('Are you sure you want to clear your entire cart?')) {
         return;
@@ -193,10 +170,7 @@ async function clearCart() {
     }
 }
 
-/**
- * Update cart badge in navbar
- * @param {number} count - New item count
- */
+// Navbar e cart badge update kore
 function updateCartBadge(count) {
     const badge = document.getElementById('cartBadge');
     const cartIcon = document.getElementById('cartIcon');
@@ -225,14 +199,11 @@ function updateCartBadge(count) {
     }
 }
 
-/**
- * Update cart display with new summary
- * @param {object} summary - Cart summary object
- */
+// Cart display update kore notun summary diye
 function updateCartDisplay(summary) {
     if (!summary) return;
     
-    // Update individual item subtotals
+    // Individual item subtotals update kore
     Object.keys(summary.items || {}).forEach(cartKey => {
         const item = summary.items[cartKey];
         const itemRow = document.querySelector(`[data-cart-key="${cartKey}"]`);
@@ -244,7 +215,7 @@ function updateCartDisplay(summary) {
         }
     });
     
-    // Update summary totals
+    // Summary totals update kore
     const updateElement = (id, value) => {
         const el = document.getElementById(id);
         if (el) el.textContent = value;
@@ -257,9 +228,7 @@ function updateCartDisplay(summary) {
     updateElement('totalAmount', summary.total.toFixed(2));
 }
 
-/**
- * Show login modal
- */
+// Login modal dekhay
 function showLoginModal() {
     const modal = document.getElementById('loginModal');
     if (modal) {
@@ -267,9 +236,7 @@ function showLoginModal() {
     }
 }
 
-/**
- * Close login modal
- */
+// Login modal bondho kore
 function closeLoginModal() {
     const modal = document.getElementById('loginModal');
     if (modal) {
@@ -277,11 +244,7 @@ function closeLoginModal() {
     }
 }
 
-/**
- * Show order success modal
- * @param {string} orderNumber - Order number
- * @param {number} total - Order total
- */
+// Order success modal dekhay
 function showOrderSuccess(orderNumber, total) {
     const modal = document.getElementById('orderSuccessModal');
     const orderNumEl = document.getElementById('orderNumber');
@@ -294,9 +257,7 @@ function showOrderSuccess(orderNumber, total) {
     }
 }
 
-/**
- * Logout function
- */
+// Logout kore
 async function logout() {
     try {
         const formData = new FormData();
@@ -320,7 +281,7 @@ async function logout() {
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
-    // Login form submission
+    // Login form submit
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', async function(e) {
@@ -363,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Checkout form submission
+    // Checkout form submit
     const checkoutForm = document.getElementById('checkoutForm');
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', async function(e) {
@@ -397,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Close modal when clicking outside
+    // Modal er baire click korle bondho hoy
     window.addEventListener('click', function(e) {
         const loginModal = document.getElementById('loginModal');
         if (e.target === loginModal) {
@@ -405,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Close modal with Escape key
+    // Escape key diye modal bondho kore
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeLoginModal();
@@ -413,7 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Make functions available globally
+// Functions globally available kore
 window.addToCart = addToCart;
 window.updateQuantity = updateQuantity;
 window.setQuantity = setQuantity;
