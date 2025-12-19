@@ -5,6 +5,7 @@
 
 // Get API path from the global variable set by PHP
 const API_PATH = window.apiPath || './api/';
+const AUTH_PATH = window.authPath || './auth/';
 
 /**
  * Show toast notification
@@ -301,7 +302,7 @@ async function logout() {
         const formData = new FormData();
         formData.append('action', 'logout');
         
-        const response = await fetch(API_PATH + 'auth.php', {
+        const response = await fetch(AUTH_PATH + 'auth_api.php', {
             method: 'POST',
             body: formData
         });
@@ -335,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 formData.append('email', email);
                 formData.append('password', password);
                 
-                const response = await fetch(API_PATH + 'auth.php', {
+                const response = await fetch(AUTH_PATH + 'auth_api.php', {
                     method: 'POST',
                     body: formData
                 });

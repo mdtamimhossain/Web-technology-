@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Database Setup Script
+ * Creates all necessary tables for the webShop
+ */
 
 // Database credentials
 $host = 'localhost';
@@ -20,7 +23,7 @@ try {
     
     $pdo->exec("USE `$dbname`");
     
-
+    // Create users table
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -35,7 +38,7 @@ try {
     ");
     echo "<p style='color:green;'>✓ Table 'users' created successfully.</p>";
     
-    // Create shopping_cart table for persistent permant and guest er jonne session-based carts
+    // Create shopping_cart table
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS shopping_cart (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -99,7 +102,7 @@ try {
     ");
     echo "<p style='color:green;'>✓ Table 'order_items' created successfully.</p>";
     
-    // Insert a test user (password: test123) default hisebe
+    // Insert a test user (password: test123)
     $testPassword = password_hash('test123', PASSWORD_DEFAULT);
     $stmt = $pdo->prepare("INSERT IGNORE INTO users (name, email, password, phone, address) VALUES (?, ?, ?, ?, ?)");
     $stmt->execute(['Test User', 'test@example.com', $testPassword, '123-456-7890', '123 Test Street, Test City']);

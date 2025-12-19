@@ -2,12 +2,11 @@
 /**
  * Authentication API Endpoint
  * Handles login, logout, and registration
- * NOTE: This file is deprecated. Use /auth/auth_api.php instead.
  */
 
 header('Content-Type: application/json');
 
-require_once __DIR__ . '/../auth/auth.php';
+require_once __DIR__ . '/auth.php';
 
 // Get the action from POST
 $action = $_POST['action'] ?? $_GET['action'] ?? '';

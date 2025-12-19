@@ -4,8 +4,8 @@
  * Handles all shopping cart operations using session storage
  */
 
-require_once __DIR__ . '/db.php';
-require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/../database/db.php';
+require_once __DIR__ . '/../auth/auth.php';
 require_once __DIR__ . '/functions.php';
 
 /**

@@ -4,7 +4,7 @@
  * Handles user authentication, session management, and user operations
  */
 
-require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/../database/db.php';
 
 /**
  * Initialize session if not already started
@@ -48,6 +48,28 @@ function getCurrentUser() {
     $stmt = $pdo->prepare("SELECT id, name, email FROM users WHERE id = ?");
     $stmt->execute([getCurrentUserId()]);
     return $stmt->fetch();
+}
+
+/**
+ * Get last name from full name
+ * @param string $fullName The full name
+ * @return string The last name (or full name if only one word)
+ */
+function getLastName($fullName) {
+    $parts = explode(' ', trim($fullName));
+    return count($parts) > 1 ? end($parts) : $fullName;
+}
+
+/**
+ * Get current user's last name
+ * @return string The user's last name or empty string
+ */
+function getCurrentUserLastName() {
+    initSession();
+    if (isset($_SESSION['user_name'])) {
+        return getLastName($_SESSION['user_name']);
+    }
+    return '';
 }
 
 /**

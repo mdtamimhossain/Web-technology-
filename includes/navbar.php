@@ -1,20 +1,31 @@
 <?php
-    // Default values if not set in the calling page
+    require_once __DIR__ . '/cart_functions.php';
+    require_once __DIR__ . '/../auth/auth.php';
+    
+    // Initialize session first
+    initSession();
+    
     $siteName = $siteName ?? "Krist";
     $currentPage = $currentPage ?? "home";
     
-    // Initialize cart functions for cart count
-    require_once __DIR__ . '/cart_functions.php';
     $cartCount = getCartItemCount();
     $isUserLoggedIn = isLoggedIn();
-    $userName = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : '';
-    
-    // Determine if we're in the pages directory or root
+    $userName = $isUserLoggedIn ? getCurrentUserLastName() : '';
+
     $inPages = strpos($_SERVER['PHP_SELF'], '/pages/') !== false;
     $basePath = $inPages ? './..' : '.';
     $pagesPath = $inPages ? './' : './pages/';
     $apiPath = $inPages ? './../api/' : './api/';
+    $authPath = $inPages ? './../auth/' : './auth/';
 ?>
+
+<!-- Store API path for JavaScript - Must be before cart.js loads -->
+<script>
+    window.apiPath = '<?php echo $apiPath; ?>';
+    window.authPath = '<?php echo $authPath; ?>';
+    window.pagesPath = '<?php echo $pagesPath; ?>';
+    window.isLoggedIn = <?php echo $isUserLoggedIn ? 'true' : 'false'; ?>;
+</script>
 
 <header class="navbar">
     <div class="nav-container">
@@ -60,13 +71,13 @@
             
             <!-- Login/User Section -->
             <?php if ($isUserLoggedIn): ?>
-                <div class="user-dropdown">
-                    <a class="login-btn user-btn" href="#">
-                        <i class="fa fa-user"></i> <?php echo htmlspecialchars($userName); ?>
+                <div class="dropdown user-dropdown">
+                    <a href="<?php echo $pagesPath; ?>personal_information.php" class="login-btn user-btn">
+                        <i class="fa fa-user"></i> <?php echo htmlspecialchars($userName); ?> <span class="arrow"></span>
                     </a>
-                    <div class="user-dropdown-content">
+                    <div class="dropdown-content user-dropdown-content">
+                        <a href="<?php echo $pagesPath; ?>personal_information.php"><i class="fa fa-user"></i> My Profile</a>
                         <a href="<?php echo $pagesPath; ?>myorders.php"><i class="fa fa-box"></i> My Orders</a>
-                        <a href="<?php echo $pagesPath; ?>personal_information.php"><i class="fa fa-cog"></i> Settings</a>
                         <a href="#" onclick="logout(); return false;"><i class="fa fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
@@ -76,10 +87,3 @@
         </div>
     </div>
 </header>
-
-<!-- Store API path for JavaScript -->
-<script>
-    window.apiPath = '<?php echo $apiPath; ?>';
-    window.pagesPath = '<?php echo $pagesPath; ?>';
-    window.isLoggedIn = <?php echo $isUserLoggedIn ? 'true' : 'false'; ?>;
-</script>

@@ -1,5 +1,5 @@
 <?php
-require_once './../includes/auth.php';
+require_once './../auth/auth.php';
 
 // Check if already logged in
 if (isLoggedIn()) {

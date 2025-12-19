@@ -348,25 +348,36 @@ body.dark-mode .cart-filled {
 .user-btn {
     display: flex;
     align-items: center;
-    gap: 6px;
-}
-
-.user-dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: var(--bg);
-    min-width: 180px;
+    gap: 8px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--primary);
+    padding: 8px 14px;
     border-radius: 8px;
-    box-shadow: 0 6px 20px var(--shadow-dark);
-    z-index: 1000;
-    overflow: hidden;
-    margin-top: 10px;
+    border: 1px solid var(--pale-bg);
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
-.user-dropdown:hover .user-dropdown-content {
-    display: block;
+.user-btn:hover {
+    background: var(--pale-bg);
+}
+
+body.dark-mode .user-btn {
+    background: var(--dark-gray);
+    color: var(--white);
+    border-color: var(--medium-gray);
+}
+
+body.dark-mode .user-btn:hover {
+    background: var(--medium-gray);
+}
+
+/* Override dropdown-content position for user dropdown (align right) */
+.user-dropdown .dropdown-content {
+    left: auto;
+    right: 0;
+    min-width: 180px;
 }
 
 .user-dropdown-content a {
@@ -382,6 +393,7 @@ body.dark-mode .cart-filled {
 
 .user-dropdown-content a:hover {
     background: var(--muted);
+    
 }
 
 .user-dropdown-content a i {

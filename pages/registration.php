@@ -1,10 +1,10 @@
 <?php
-// Start session if not already started
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Try to include a project-wide config from the project root (if present)
+
 $projectRoot = dirname(__DIR__);
 if (file_exists($projectRoot . '/config.php')) {
     require_once $projectRoot . '/config.php';
@@ -16,7 +16,7 @@ if (file_exists($projectRoot . '/config.php')) {
   <meta charset="UTF-8">
   <title>Registration</title>
   <link rel="stylesheet" href="./../CSS/register.css" />
-  <!-- reuse the login styles so registration matches the login page -->
+
   <link rel="stylesheet" href="./../CSS/log.css" />
 </head>
 <body>
@@ -54,11 +54,11 @@ if (file_exists($projectRoot . '/config.php')) {
           <button type="submit" class="btn primary">Register</button>
         </div>
 
-        <!-- prompt: guide users to login if they already have an account -->
+        
         <p class="auth-prompt">Already have an account? <a href="./login.php">Sign in</a></p>
       </form>
 
-      <!-- 👇 Back to home link added here -->
+      
       <div class="back-home">
         <a href="./../index.php">Back to Home</a>
       </div>
