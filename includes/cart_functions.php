@@ -9,6 +9,25 @@ require_once __DIR__ . '/../auth/auth.php';
 require_once __DIR__ . '/functions.php';
 
 /**
+ * Check if customer is blocked
+ * @param int $userId User ID
+ * @return array ['blocked' => bool, 'reason' => string|null]
+ */
+function isCustomerBlocked($userId) {
+    $pdo = getDBConnection();
+    if (!$pdo) return ['blocked' => false, 'reason' => null];
+    
+    $stmt = $pdo->prepare("SELECT is_blocked, blocked_reason FROM users WHERE id = ?");
+    $stmt->execute([$userId]);
+    $user = $stmt->fetch();
+    
+    if ($user && $user['is_blocked']) {
+        return ['blocked' => true, 'reason' => $user['blocked_reason']];
+    }
+    return ['blocked' => false, 'reason' => null];
+}
+
+/**
  * Initialize the cart in session
  */
 function initCart() {
@@ -191,6 +210,13 @@ function createOrder($shippingInfo = []) {
         return ['success' => false, 'message' => 'Please login to complete your order', 'requireLogin' => true];
     }
     
+    // Check if customer is blocked
+    $blockedStatus = isCustomerBlocked(getCurrentUserId());
+    if ($blockedStatus['blocked']) {
+        $reason = $blockedStatus['reason'] ? ': ' . $blockedStatus['reason'] : '';
+        return ['success' => false, 'message' => 'Your account is blocked by the administrator' . $reason, 'blocked' => true];
+    }
+    
     $cartItems = getCartItems();
     if (empty($cartItems)) {
         return ['success' => false, 'message' => 'Your cart is empty'];
@@ -295,6 +321,46 @@ function getUserOrders($userId = null) {
     ");
     $stmt->execute([$userId]);
     return $stmt->fetchAll();
+}
+
+/**
+ * Cancel an order (only if pending - not yet shipped)
+ * @param int $orderId Order ID
+ * @return array Result with success status
+ */
+function cancelOrder($orderId) {
+    if (!isLoggedIn()) {
+        return ['success' => false, 'message' => 'Please login to cancel order'];
+    }
+    
+    $pdo = getDBConnection();
+    if (!$pdo) {
+        return ['success' => false, 'message' => 'Database connection failed'];
+    }
+    
+    // Get the order and verify ownership
+    $stmt = $pdo->prepare("SELECT * FROM orders WHERE id = ? AND user_id = ?");
+    $stmt->execute([$orderId, getCurrentUserId()]);
+    $order = $stmt->fetch();
+    
+    if (!$order) {
+        return ['success' => false, 'message' => 'Order not found'];
+    }
+    
+    // Only allow cancellation if order is pending (not yet processed/shipped)
+    if ($order['status'] !== 'pending') {
+        return ['success' => false, 'message' => 'Only pending orders can be cancelled. Your order is already ' . $order['status'] . '.'];
+    }
+    
+    // Cancel the order
+    $stmt = $pdo->prepare("UPDATE orders SET status = 'cancelled' WHERE id = ?");
+    $result = $stmt->execute([$orderId]);
+    
+    if ($result) {
+        return ['success' => true, 'message' => 'Order cancelled successfully'];
+    }
+    
+    return ['success' => false, 'message' => 'Failed to cancel order'];
 }
 
 /**

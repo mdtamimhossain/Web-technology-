@@ -364,7 +364,7 @@ body.dark-mode .cart-filled {
 }
 
 body.dark-mode .user-btn {
-    background: var(--dark-gray);
+    background: transparent;
     color: var(--white);
     border-color: var(--medium-gray);
 }

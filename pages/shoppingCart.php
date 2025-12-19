@@ -143,6 +143,21 @@ $currentUser = getCurrentUser();
                 </div>
                 
                 <?php if ($isUserLoggedIn): ?>
+                <?php 
+                // Check if customer is blocked
+                $isBlocked = isCustomerBlocked(getCurrentUserId());
+                if ($isBlocked): 
+                ?>
+                <!-- Blocked User Message -->
+                <div class="blocked-notice">
+                    <div class="blocked-icon">
+                        <i class="fa fa-ban"></i>
+                    </div>
+                    <h3>Account Blocked</h3>
+                    <p>Your account has been blocked and you cannot place orders at this time.</p>
+                    <p class="blocked-reason">If you believe this is an error, please contact customer support.</p>
+                </div>
+                <?php else: ?>
                 <!-- Checkout Form for Logged-in Users -->
                 <div class="checkout-section">
                     <h3>Shipping Information</h3>
@@ -169,6 +184,7 @@ $currentUser = getCurrentUser();
                         </button>
                     </form>
                 </div>
+                <?php endif; ?>
                 <?php else: ?>
                 <!-- Login Required Message -->
                 <div class="login-required">

@@ -23,7 +23,7 @@ try {
     
     $pdo->exec("USE `$dbname`");
     
-    // Create users table
+    // Create users table with blocked field
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -32,11 +32,42 @@ try {
             password VARCHAR(255) NOT NULL,
             phone VARCHAR(20),
             address TEXT,
+            is_blocked TINYINT(1) DEFAULT 0,
+            blocked_reason TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         ) ENGINE=InnoDB
     ");
     echo "<p style='color:green;'>✓ Table 'users' created successfully.</p>";
+    
+    // Add is_blocked column if it doesn't exist
+    try {
+        $pdo->exec("ALTER TABLE users ADD COLUMN is_blocked TINYINT(1) DEFAULT 0");
+        echo "<p style='color:blue;'>ℹ Added 'is_blocked' column to users table.</p>";
+    } catch (PDOException $e) {
+        // Column already exists
+    }
+    
+    try {
+        $pdo->exec("ALTER TABLE users ADD COLUMN blocked_reason TEXT");
+        echo "<p style='color:blue;'>ℹ Added 'blocked_reason' column to users table.</p>";
+    } catch (PDOException $e) {
+        // Column already exists
+    }
+    
+    // Create admins table
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS admins (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(50) NOT NULL UNIQUE,
+            email VARCHAR(255) NOT NULL UNIQUE,
+            password VARCHAR(255) NOT NULL,
+            name VARCHAR(100) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB
+    ");
+    echo "<p style='color:green;'>✓ Table 'admins' created successfully.</p>";
     
     // Create shopping_cart table
     $pdo->exec("
@@ -59,7 +90,7 @@ try {
     ");
     echo "<p style='color:green;'>✓ Table 'shopping_cart' created successfully.</p>";
     
-    // Create orders table
+    // Create orders table with enhanced status
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS orders (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -68,11 +99,17 @@ try {
             subtotal DECIMAL(10,2) NOT NULL,
             tax_amount DECIMAL(10,2) NOT NULL,
             total_amount DECIMAL(10,2) NOT NULL,
-            status ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled') DEFAULT 'pending',
+            status ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled', 'rejected') DEFAULT 'pending',
+            rejection_reason TEXT,
             shipping_name VARCHAR(100),
             shipping_address TEXT,
             shipping_phone VARCHAR(20),
             notes TEXT,
+            admin_notes TEXT,
+            processed_by INT NULL,
+            processed_at TIMESTAMP NULL,
+            shipped_at TIMESTAMP NULL,
+            delivered_at TIMESTAMP NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
@@ -82,6 +119,33 @@ try {
         ) ENGINE=InnoDB
     ");
     echo "<p style='color:green;'>✓ Table 'orders' created successfully.</p>";
+    
+    // Add new columns to orders if they don't exist
+    $newColumns = [
+        'rejection_reason' => 'TEXT',
+        'admin_notes' => 'TEXT',
+        'processed_by' => 'INT NULL',
+        'processed_at' => 'TIMESTAMP NULL',
+        'shipped_at' => 'TIMESTAMP NULL',
+        'delivered_at' => 'TIMESTAMP NULL'
+    ];
+    
+    foreach ($newColumns as $column => $type) {
+        try {
+            $pdo->exec("ALTER TABLE orders ADD COLUMN $column $type");
+            echo "<p style='color:blue;'>ℹ Added '$column' column to orders table.</p>";
+        } catch (PDOException $e) {
+            // Column already exists
+        }
+    }
+    
+    // Update status enum to include new statuses
+    try {
+        $pdo->exec("ALTER TABLE orders MODIFY COLUMN status ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled', 'rejected') DEFAULT 'pending'");
+        echo "<p style='color:blue;'>ℹ Updated 'status' enum in orders table.</p>";
+    } catch (PDOException $e) {
+        // Already updated
+    }
     
     // Create order_items table
     $pdo->exec("
@@ -108,10 +172,16 @@ try {
     $stmt->execute(['Test User', 'test@example.com', $testPassword, '123-456-7890', '123 Test Street, Test City']);
     echo "<p style='color:blue;'>ℹ Test user created: email='test@example.com', password='test123'</p>";
     
+    // Insert a default admin (password: admin123)
+    $adminPassword = password_hash('admin123', PASSWORD_DEFAULT);
+    $stmt = $pdo->prepare("INSERT IGNORE INTO admins (username, email, password, name) VALUES (?, ?, ?, ?)");
+    $stmt->execute(['admin', 'admin@example.com', $adminPassword, 'Administrator']);
+    echo "<p style='color:blue;'>ℹ Admin user created: username='admin', password='admin123'</p>";
+    
     echo "<hr>";
     echo "<h2 style='color:green;'>✓ Database setup completed successfully!</h2>";
-    echo "<p>You can now use the shopping cart functionality.</p>";
-    echo "<p><a href='../index.php'>← Go to Homepage</a></p>";
+    echo "<p>You can now use the shopping cart and admin functionality.</p>";
+    echo "<p><a href='../index.php'>← Go to Homepage</a> | <a href='../administrator/login.php'>Go to Admin Panel →</a></p>";
     
 } catch (PDOException $e) {
     echo "<p style='color:red;'>✗ Error: " . htmlspecialchars($e->getMessage()) . "</p>";
