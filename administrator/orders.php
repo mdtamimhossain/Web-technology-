@@ -1,211 +1,113 @@
 <?php
-/**
- * Admin Orders Management
- */
-$pageTitle = 'Orders';
+require_once __DIR__ . '/../auth/admin_auth.php';
 require_once __DIR__ . '/../includes/admin_functions.php';
-require_once __DIR__ . '/../includes/admin_header.php';
+requireAdminLogin();
 
-$status = $_GET['status'] ?? '';
-$orders = getOrdersByStatus($status ?: null, 100);
+// Handle status update
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id'])) {
+    updateOrderStatus($_POST['order_id'], $_POST['status']);
+    header('Location: orders.php');
+    exit;
+}
 
-$statusLabels = [
-    '' => 'All Orders',
-    'pending' => 'New Orders',
-    'processing' => 'Processing',
-    'shipped' => 'Shipped',
-    'delivered' => 'Delivered',
-    'rejected' => 'Rejected',
-    'cancelled' => 'Cancelled'
-];
-
-$pageTitle = $statusLabels[$status] ?? 'Orders';
+$status = $_GET['status'] ?? null;
+$orders = getAllOrders($status);
 ?>
-
-<div class="orders-filters">
-    <div class="filter-tabs">
-        <a href="orders.php" class="<?php echo $status === '' ? 'active' : ''; ?>">All</a>
-        <a href="orders.php?status=pending" class="<?php echo $status === 'pending' ? 'active' : ''; ?>">
-            New <span class="badge"><?php echo count(getOrdersByStatus('pending')); ?></span>
-        </a>
-        <a href="orders.php?status=processing" class="<?php echo $status === 'processing' ? 'active' : ''; ?>">Processing</a>
-        <a href="orders.php?status=shipped" class="<?php echo $status === 'shipped' ? 'active' : ''; ?>">Shipped</a>
-        <a href="orders.php?status=delivered" class="<?php echo $status === 'delivered' ? 'active' : ''; ?>">Delivered</a>
-        <a href="orders.php?status=rejected" class="<?php echo $status === 'rejected' ? 'active' : ''; ?>">Rejected</a>
-    </div>
-</div>
-
-<div class="admin-panel">
-    <div class="panel-header">
-        <h2><i class="fa-solid fa-box"></i> <?php echo $statusLabels[$status] ?? 'All Orders'; ?></h2>
-        <span class="order-count"><?php echo count($orders); ?> orders</span>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orders - Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial; background: #f5f5f5; }
+        .header { background: #333; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 20px; }
+        .header a { color: white; text-decoration: none; margin-left: 20px; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .nav { display: flex; gap: 15px; margin-bottom: 30px; }
+        .nav a { padding: 10px 20px; background: white; text-decoration: none; color: #333; border-radius: 5px; }
+        .nav a:hover, .nav a.active { background: #007bff; color: white; }
+        .filters { margin-bottom: 20px; }
+        .filters a { margin-right: 10px; padding: 8px 15px; background: #eee; text-decoration: none; color: #333; border-radius: 5px; }
+        .filters a.active { background: #007bff; color: white; }
+        .card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; }
+        .status { padding: 5px 10px; border-radius: 15px; font-size: 12px; }
+        .status.pending { background: #fff3cd; color: #856404; }
+        .status.processing { background: #cce5ff; color: #004085; }
+        .status.shipped { background: #d4edda; color: #155724; }
+        .status.delivered { background: #d1ecf1; color: #0c5460; }
+        .status.cancelled { background: #f8d7da; color: #721c24; }
+        select { padding: 5px 10px; border-radius: 5px; border: 1px solid #ddd; }
+        .btn { padding: 5px 10px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .btn:hover { background: #0056b3; }
+        a.view { color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Admin Panel</h1>
+        <div>
+            <span>Welcome, <?php echo getAdminName(); ?></span>
+            <a href="logout.php">Logout</a>
+        </div>
     </div>
     
-    <?php if (empty($orders)): ?>
-    <div class="empty-state">
-        <i class="fa-solid fa-inbox"></i>
-        <p>No orders found</p>
-    </div>
-    <?php else: ?>
-    <div class="table-responsive">
-        <table class="admin-table">
-            <thead>
+    <div class="container">
+        <div class="nav">
+            <a href="index.php">Dashboard</a>
+            <a href="orders.php" class="active">Orders</a>
+            <a href="customers.php">Customers</a>
+        </div>
+        
+        <div class="filters">
+            <a href="orders.php" class="<?php echo !$status ? 'active' : ''; ?>">All</a>
+            <a href="orders.php?status=pending" class="<?php echo $status == 'pending' ? 'active' : ''; ?>">Pending</a>
+            <a href="orders.php?status=processing" class="<?php echo $status == 'processing' ? 'active' : ''; ?>">Processing</a>
+            <a href="orders.php?status=shipped" class="<?php echo $status == 'shipped' ? 'active' : ''; ?>">Shipped</a>
+            <a href="orders.php?status=delivered" class="<?php echo $status == 'delivered' ? 'active' : ''; ?>">Delivered</a>
+            <a href="orders.php?status=cancelled" class="<?php echo $status == 'cancelled' ? 'active' : ''; ?>">Cancelled</a>
+        </div>
+        
+        <div class="card">
+            <table>
                 <tr>
                     <th>Order #</th>
                     <th>Customer</th>
-                    <th>Items</th>
                     <th>Total</th>
                     <th>Status</th>
                     <th>Date</th>
-                    <th>Actions</th>
+                    <th>Action</th>
                 </tr>
-            </thead>
-            <tbody>
                 <?php foreach ($orders as $order): ?>
                 <tr>
-                    <td>
-                        <a href="order_detail.php?id=<?php echo $order['id']; ?>" class="order-link">
-                            <strong><?php echo htmlspecialchars($order['order_number']); ?></strong>
-                        </a>
-                    </td>
-                    <td>
-                        <div class="customer-info">
-                            <?php echo htmlspecialchars($order['customer_name']); ?>
-                            <small><?php echo htmlspecialchars($order['customer_email']); ?></small>
-                        </div>
-                    </td>
-                    <td>
-                        <?php 
-                        $pdo = getDBConnection();
-                        $stmt = $pdo->prepare("SELECT COUNT(*) FROM order_items WHERE order_id = ?");
-                        $stmt->execute([$order['id']]);
-                        echo $stmt->fetchColumn();
-                        ?> items
-                    </td>
-                    <td><strong>$<?php echo number_format($order['total_amount'], 2); ?></strong></td>
-                    <td>
-                        <span class="status-badge status-<?php echo $order['status']; ?>">
-                            <?php echo ucfirst($order['status']); ?>
-                        </span>
-                    </td>
+                    <td><?php echo $order['order_number']; ?></td>
+                    <td><?php echo $order['customer_name']; ?><br><small><?php echo $order['customer_email']; ?></small></td>
+                    <td>$<?php echo number_format($order['total_amount'], 2); ?></td>
+                    <td><span class="status <?php echo $order['status']; ?>"><?php echo ucfirst($order['status']); ?></span></td>
                     <td><?php echo date('M d, Y', strtotime($order['created_at'])); ?></td>
-                    <td class="actions-cell">
-                        <a href="order_detail.php?id=<?php echo $order['id']; ?>" class="btn-action view" title="View Details">
-                            <i class="fa-solid fa-eye"></i>
-                        </a>
-                        
-                        <?php if ($order['status'] === 'pending'): ?>
-                        <button class="btn-action process" onclick="processOrder(<?php echo $order['id']; ?>)" title="Process Order">
-                            <i class="fa-solid fa-check"></i>
-                        </button>
-                        <button class="btn-action reject" onclick="showRejectModal(<?php echo $order['id']; ?>)" title="Reject Order">
-                            <i class="fa-solid fa-times"></i>
-                        </button>
-                        <?php endif; ?>
-                        
-                        <?php if ($order['status'] === 'processing'): ?>
-                        <button class="btn-action ship" onclick="shipOrder(<?php echo $order['id']; ?>)" title="Mark as Shipped">
-                            <i class="fa-solid fa-truck"></i>
-                        </button>
-                        <?php endif; ?>
-                        
-                        <?php if ($order['status'] === 'shipped'): ?>
-                        <button class="btn-action deliver" onclick="deliverOrder(<?php echo $order['id']; ?>)" title="Mark as Delivered">
-                            <i class="fa-solid fa-circle-check"></i>
-                        </button>
-                        <?php endif; ?>
+                    <td>
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                            <select name="status" onchange="this.form.submit()">
+                                <option value="pending" <?php echo $order['status'] == 'pending' ? 'selected' : ''; ?>>Pending</option>
+                                <option value="processing" <?php echo $order['status'] == 'processing' ? 'selected' : ''; ?>>Processing</option>
+                                <option value="shipped" <?php echo $order['status'] == 'shipped' ? 'selected' : ''; ?>>Shipped</option>
+                                <option value="delivered" <?php echo $order['status'] == 'delivered' ? 'selected' : ''; ?>>Delivered</option>
+                                <option value="cancelled" <?php echo $order['status'] == 'cancelled' ? 'selected' : ''; ?>>Cancelled</option>
+                            </select>
+                        </form>
+                        <a href="order_detail.php?id=<?php echo $order['id']; ?>" class="view">View</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <?php endif; ?>
-</div>
-
-<!-- Reject Modal -->
-<div class="modal" id="rejectModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3><i class="fa-solid fa-ban"></i> Reject Order</h3>
-            <button class="modal-close" onclick="closeRejectModal()">&times;</button>
+                <?php if (empty($orders)): ?>
+                <tr><td colspan="6" style="text-align:center; padding:30px;">No orders found</td></tr>
+                <?php endif; ?>
+            </table>
         </div>
-        <form id="rejectForm" onsubmit="submitReject(event)">
-            <input type="hidden" id="rejectOrderId" name="order_id">
-            <div class="form-group">
-                <label for="rejectReason">Rejection Reason (will be shown to customer):</label>
-                <textarea id="rejectReason" name="reason" required rows="3" 
-                          placeholder="e.g., Products not available, Unable to ship to your location..."></textarea>
-            </div>
-            <div class="modal-actions">
-                <button type="button" class="btn-secondary" onclick="closeRejectModal()">Cancel</button>
-                <button type="submit" class="btn-danger">Reject Order</button>
-            </div>
-        </form>
     </div>
-</div>
-
-<script>
-function processOrder(orderId) {
-    if (confirm('Process this order? It will be marked as "Processing".')) {
-        updateOrderStatus(orderId, 'processing');
-    }
-}
-
-function shipOrder(orderId) {
-    if (confirm('Mark this order as shipped?')) {
-        updateOrderStatus(orderId, 'shipped');
-    }
-}
-
-function deliverOrder(orderId) {
-    if (confirm('Mark this order as delivered?')) {
-        updateOrderStatus(orderId, 'delivered');
-    }
-}
-
-function showRejectModal(orderId) {
-    document.getElementById('rejectOrderId').value = orderId;
-    document.getElementById('rejectModal').classList.add('show');
-}
-
-function closeRejectModal() {
-    document.getElementById('rejectModal').classList.remove('show');
-    document.getElementById('rejectForm').reset();
-}
-
-function submitReject(e) {
-    e.preventDefault();
-    const orderId = document.getElementById('rejectOrderId').value;
-    const reason = document.getElementById('rejectReason').value;
-    updateOrderStatus(orderId, 'rejected', reason);
-    closeRejectModal();
-}
-
-function updateOrderStatus(orderId, status, reason = '') {
-    const formData = new FormData();
-    formData.append('action', 'update_status');
-    formData.append('order_id', orderId);
-    formData.append('status', status);
-    if (reason) formData.append('reason', reason);
-    
-    fetch('./../api/admin_orders.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            location.reload();
-        } else {
-            alert(data.message || 'Error updating order');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error updating order');
-    });
-}
-</script>
-
-<?php require_once __DIR__ . '/../includes/admin_footer.php'; ?>
+</body>
+</html>

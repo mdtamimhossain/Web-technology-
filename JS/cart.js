@@ -224,6 +224,13 @@ function updateCartDisplay(summary) {
     updateElement('itemCount', summary.itemCount);
     updateElement('subtotal', summary.subtotal.toFixed(2));
     updateElement('subtotalDisplay', summary.subtotal.toFixed(2));
+    
+    // Discount info update kore jodi thake
+    if (summary.discount && summary.discount > 0) {
+        const discountAmount = summary.subtotal * summary.discount / 100;
+        updateElement('discountAmount', discountAmount.toFixed(2));
+    }
+    
     updateElement('taxAmount', summary.tax.toFixed(2));
     updateElement('totalAmount', summary.total.toFixed(2));
 }
@@ -245,14 +252,28 @@ function closeLoginModal() {
 }
 
 // Order success modal dekhay
-function showOrderSuccess(orderNumber, total) {
+function showOrderSuccess(orderNumber, total, discountPercent = 0, subtotal = 0) {
     const modal = document.getElementById('orderSuccessModal');
     const orderNumEl = document.getElementById('orderNumber');
     const orderTotalEl = document.getElementById('orderTotal');
+    const discountInfoEl = document.getElementById('orderDiscountInfo');
+    const discountAmountEl = document.getElementById('orderDiscountAmount');
+    const discountPercentEl = document.getElementById('orderDiscountPercent');
     
     if (modal) {
         if (orderNumEl) orderNumEl.textContent = orderNumber;
         if (orderTotalEl) orderTotalEl.textContent = '$' + parseFloat(total).toFixed(2);
+        
+        // Discount info dekhay jodi thake
+        if (discountPercent > 0 && discountInfoEl) {
+            const discountAmount = subtotal * discountPercent / 100;
+            if (discountAmountEl) discountAmountEl.textContent = '$' + discountAmount.toFixed(2);
+            if (discountPercentEl) discountPercentEl.textContent = discountPercent;
+            discountInfoEl.classList.remove('hidden');
+        } else if (discountInfoEl) {
+            discountInfoEl.classList.add('hidden');
+        }
+        
         modal.style.display = 'flex';
     }
 }
@@ -342,7 +363,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const result = await response.json();
                 
                 if (result.success) {
-                    showOrderSuccess(result.orderNumber, result.total);
+                    // Simple discount - now returns percent as a number
+                    showOrderSuccess(result.orderNumber, result.total, result.discount || 0, result.subtotal || 0);
                     updateCartBadge(0);
                 } else {
                     if (result.requireLogin) {

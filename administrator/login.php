@@ -1,85 +1,53 @@
 <?php
-/**
- * Admin Login Page
- */
 require_once __DIR__ . '/../auth/admin_auth.php';
-
-// Redirect if already logged in
-if (isAdminLoggedIn()) {
-    header('Location: index.php');
-    exit;
-}
 
 $error = '';
 
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     
-    if (empty($username) || empty($password)) {
-        $error = 'Username and password are required';
+    if (adminLogin($username, $password)) {
+        header('Location: index.php');
+        exit;
     } else {
-        $result = loginAdmin($username, $password);
-        if ($result['success']) {
-            header('Location: index.php');
-            exit;
-        } else {
-            $error = $result['message'];
-        }
+        $error = 'Invalid username or password';
     }
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - Krist</title>
-    <link rel="stylesheet" href="./../CSS/admin.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Admin Login</title>
+    <style>
+        body { font-family: Arial; background: #f5f5f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-box { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 350px; }
+        h1 { text-align: center; color: #333; margin-bottom: 30px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; color: #555; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #0056b3; }
+        .error { background: #ffe6e6; color: #cc0000; padding: 10px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
+    </style>
 </head>
-<body class="login-page">
-    <div class="login-container">
-        <div class="login-box">
-            <div class="login-header">
-                <h1><i class="fa-solid fa-gem"></i> Krist</h1>
-                <p>Administrator Panel</p>
+<body>
+    <div class="login-box">
+        <h1>Admin Login</h1>
+        <?php if ($error): ?>
+            <div class="error"><?php echo $error; ?></div>
+        <?php endif; ?>
+        <form method="POST">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" required>
             </div>
-            
-            <?php if ($error): ?>
-            <div class="alert alert-error">
-                <i class="fa-solid fa-circle-exclamation"></i> <?php echo htmlspecialchars($error); ?>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" required>
             </div>
-            <?php endif; ?>
-            
-            <form method="POST" action="" class="login-form">
-                <div class="form-group">
-                    <label for="username">
-                        <i class="fa-solid fa-user"></i> Username or Email
-                    </label>
-                    <input type="text" id="username" name="username" required 
-                           value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>"
-                           placeholder="Enter your username">
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">
-                        <i class="fa-solid fa-lock"></i> Password
-                    </label>
-                    <input type="password" id="password" name="password" required
-                           placeholder="Enter your password">
-                </div>
-                
-                <button type="submit" class="btn-login">
-                    <i class="fa-solid fa-right-to-bracket"></i> Login
-                </button>
-            </form>
-            
-            <div class="login-footer">
-                <a href="../index.php"><i class="fa-solid fa-arrow-left"></i> Back to Store</a>
-            </div>
-        </div>
+            <button type="submit">Login</button>
+        </form>
     </div>
 </body>
 </html>

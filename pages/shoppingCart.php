@@ -123,16 +123,18 @@ $currentUser = getCurrentUser();
                 <h2>Order Summary</h2>
                 
                 <div class="summary-row">
-                    <span>Items (<span id="itemCount"><?php echo $cartSummary['itemCount']; ?></span>)</span>
+                    <span>Subtotal</span>
                     <span>$<span id="subtotal"><?php echo number_format($cartSummary['subtotal'], 2); ?></span></span>
                 </div>
                 
-                <div class="summary-row">
-                    <span>Subtotal</span>
-                    <span>$<span id="subtotalDisplay"><?php echo number_format($cartSummary['subtotal'], 2); ?></span></span>
+                <?php if ($isUserLoggedIn && $cartSummary['discount'] > 0): ?>
+                <div class="summary-row discount-row">
+                    <span><i class="fa fa-gift"></i> Discount (<?php echo $cartSummary['discount']; ?>%)</span>
+                    <span class="discount-amount">-$<?php echo number_format($cartSummary['subtotal'] * $cartSummary['discount'] / 100, 2); ?></span>
                 </div>
+                <?php endif; ?>
                 
-                <div class="summary-row tax-row">
+                <div class="summary-row">
                     <span>Tax (<?php echo $cartSummary['taxRate']; ?>%)</span>
                     <span>$<span id="taxAmount"><?php echo number_format($cartSummary['tax'], 2); ?></span></span>
                 </div>
@@ -239,6 +241,9 @@ $currentUser = getCurrentUser();
         </div>
         <h2>Order Placed Successfully!</h2>
         <p>Your order number is: <strong id="orderNumber"></strong></p>
+        <div id="orderDiscountInfo" class="order-discount-info hidden">
+            <p><i class="fa fa-gift"></i> You saved <strong id="orderDiscountAmount"></strong> with <span id="orderDiscountPercent"></span>% discount!</p>
+        </div>
         <p>Total: <strong id="orderTotal"></strong></p>
         <div class="modal-actions">
             <a href="./myorders.php" class="btn-primary">View My Orders</a>

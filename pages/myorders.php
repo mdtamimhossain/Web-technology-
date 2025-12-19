@@ -123,6 +123,12 @@ $blockedStatus = isCustomerBlocked(getCurrentUserId());
                         <span class="label">Subtotal:</span>
                         <span>$<?php echo number_format($order['subtotal'], 2); ?></span>
                     </div>
+                    <?php if (!empty($order['discount_amount']) && $order['discount_amount'] > 0): ?>
+                    <div class="summary-item discount-item">
+                        <span class="label"><i class="fa fa-tag"></i> Discount (<?php echo $order['discount_percent']; ?>%):</span>
+                        <span class="discount-value">-$<?php echo number_format($order['discount_amount'], 2); ?></span>
+                    </div>
+                    <?php endif; ?>
                     <div class="summary-item">
                         <span class="label">Tax:</span>
                         <span>$<?php echo number_format($order['tax_amount'], 2); ?></span>

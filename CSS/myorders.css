@@ -529,6 +529,28 @@ body.dark-mode .personal-header .edit-avatar {
     margin-top: 5px;
 }
 
+/* Discount item styling */
+.summary-item.discount-item {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    padding: 8px 12px;
+    margin: 5px -12px;
+    border-radius: 6px;
+}
+
+.summary-item.discount-item .label {
+    color: #2E7D32;
+    font-weight: 600;
+}
+
+.summary-item.discount-item .label i {
+    margin-right: 5px;
+}
+
+.summary-item.discount-item .discount-value {
+    color: #2E7D32;
+    font-weight: 700;
+}
+
 .shipping-info {
     flex: 1;
     padding: 15px;
