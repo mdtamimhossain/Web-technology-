@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../database/db.php';
 
-function initSession() {
+function adminInitSession() {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
@@ -15,7 +15,7 @@ function adminLogin($username, $password) {
     $admin = $stmt->fetch();
     
     if ($admin && password_verify($password, $admin['password'])) {
-        initSession();
+        adminInitSession();
         $_SESSION['admin_id'] = $admin['id'];
         $_SESSION['admin_name'] = $admin['name'];
         return true;
@@ -24,7 +24,7 @@ function adminLogin($username, $password) {
 }
 
 function isAdminLoggedIn() {
-    initSession();
+    adminInitSession();
     return isset($_SESSION['admin_id']);
 }
 
@@ -36,14 +36,14 @@ function requireAdminLogin() {
 }
 
 function adminLogout() {
-    initSession();
+    adminInitSession();
     unset($_SESSION['admin_id']);
     unset($_SESSION['admin_name']);
     session_destroy();
 }
 
 function getAdminName() {
-    initSession();
+    adminInitSession();
     return $_SESSION['admin_name'] ?? 'Admin';
 }
 ?>

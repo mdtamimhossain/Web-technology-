@@ -148,7 +148,7 @@ $currentUser = getCurrentUser();
                 <?php 
                 // Check if customer is blocked
                 $isBlocked = isCustomerBlocked(getCurrentUserId());
-                if ($isBlocked): 
+                if ($isBlocked['blocked']): 
                 ?>
                 <!-- Blocked User Message -->
                 <div class="blocked-notice">

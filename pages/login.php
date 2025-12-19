@@ -3,7 +3,7 @@ require_once './../auth/auth.php';
 
 // Check if already logged in
 if (isLoggedIn()) {
-    $redirect = $_GET['redirect'] ?? 'homePage.php';
+    $redirect = $_GET['redirect'] ?? './../index.php';
     header('Location: ' . $redirect);
     exit;
 }
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $result = loginUser($email, $password);
         if ($result['success']) {
-            $redirect = $_GET['redirect'] ?? 'homePage.php';
+            $redirect = $_GET['redirect'] ?? './../index.php';
             header('Location: ' . $redirect);
             exit;
         } else {

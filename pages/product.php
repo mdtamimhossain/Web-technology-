@@ -263,5 +263,6 @@ if (isset($_GET["pid2"])) {
 
 <?php include './../includes/footer.php'; ?>
 <script src="./../JS/script.js"></script>
+<script src="./../JS/cart.js"></script>
 </body>
 </html>

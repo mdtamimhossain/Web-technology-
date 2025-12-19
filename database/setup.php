@@ -47,6 +47,7 @@ try {
         user_id INT NOT NULL,
         order_number VARCHAR(50) NOT NULL,
         subtotal DECIMAL(10,2) NOT NULL,
+        discount_percent INT DEFAULT 0,
         discount_amount DECIMAL(10,2) DEFAULT 0,
         tax_amount DECIMAL(10,2) NOT NULL,
         total_amount DECIMAL(10,2) NOT NULL,

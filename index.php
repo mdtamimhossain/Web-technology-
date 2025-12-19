@@ -116,6 +116,5 @@ $categories = getAllCategories();
 <?php include './includes/footer.php'; ?>
 <script src="./JS/script.js"></script>
 <script src="./JS/cart.js"></script>
-<script src="./JS/collection.js"></script>
 </body>
 </html>

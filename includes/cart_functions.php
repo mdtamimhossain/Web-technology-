@@ -79,7 +79,7 @@ function clearCart() {
     $_SESSION['cart'] = [];
 }
 
-// Simple discount: every 10th order gets 10%, every 20th gets 20%
+// discount logic
 function getDiscountPercent() {
     if (!isLoggedIn()) {
         return 0;
@@ -139,11 +139,12 @@ function createOrder($shippingInfo = []) {
         $tax = $afterDiscount * TAX_RATE;
         $total = $afterDiscount + $tax;
         
-        $stmt = $pdo->prepare("INSERT INTO orders (user_id, order_number, subtotal, discount_amount, tax_amount, total_amount, shipping_name, shipping_address, shipping_phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO orders (user_id, order_number, subtotal, discount_percent, discount_amount, tax_amount, total_amount, shipping_name, shipping_address, shipping_phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $userId,
             $orderNumber,
             $subtotal,
+            $discountPercent,
             $discountAmount,
             $tax,
             $total,
@@ -198,5 +199,33 @@ function cancelOrder($orderId) {
     $stmt = $pdo->prepare("UPDATE orders SET status = 'cancelled' WHERE id = ? AND user_id = ? AND status = 'pending'");
     $stmt->execute([$orderId, getCurrentUserId()]);
     return ['success' => true];
+}
+
+function isCustomerBlocked($userId) {
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("SELECT is_blocked FROM users WHERE id = ?");
+    $stmt->execute([$userId]);
+    $result = $stmt->fetch();
+    return ['blocked' => $result ? (bool)$result['is_blocked'] : false];
+}
+
+function getOrderDetails($orderId) {
+    if (!isLoggedIn()) return null;
+    
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("SELECT o.*, u.name as customer_name, u.email as customer_email 
+                           FROM orders o 
+                           JOIN users u ON o.user_id = u.id 
+                           WHERE o.id = ? AND o.user_id = ?");
+    $stmt->execute([$orderId, getCurrentUserId()]);
+    $order = $stmt->fetch();
+    
+    if (!$order) return null;
+    
+    $stmt = $pdo->prepare("SELECT * FROM order_items WHERE order_id = ?");
+    $stmt->execute([$orderId]);
+    $order['items'] = $stmt->fetchAll();
+    
+    return $order;
 }
 ?>

@@ -246,7 +246,6 @@ $productCount = count($products);
 <?php include './../includes/footer.php'; ?>
 <script src="./../JS/script.js"></script>
 <script src="./../JS/cart.js"></script>
-<script src="./../JS/collection.js"></script>
 <script src="./../JS/priceTax.js"></script>
 <script>
 // Filter toggle functionality
